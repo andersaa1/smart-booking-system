@@ -32,8 +32,17 @@ public class ApiController {
     );
 
     @GetMapping("/tables")
-    public List<Table> tables() {
-        return testTables;
+    public List<Table> tables(
+            @RequestParam(required = false)
+            Zone zone,
+
+            @RequestParam(required = false)
+            Integer totalSeats
+    ) {
+        return testTables.stream()
+                .filter(p -> zone == null || p.zone() == zone)
+                .filter(p -> totalSeats == null || p.totalSeats().equals(totalSeats))
+                .toList();
     }
 
     @GetMapping("/availability")
