@@ -15,4 +15,5 @@ The mock-restaurant floor plan consists of five different room sections. These r
 * **Show section:** Section of the restaurant which includes a stage for performers and special events and offers seats for up to 2 customers. This section might not be available at all times.
 * **Special section:** Two secluded rooms in the restaurant, where the larger rooms offer seats for up to 8 customers and the smaller room offers seats for up to 6 customers. Meant for private birthdays and other celebrations.
 </br>
+
 ![Restaurant floor plan](docs/floor-plan.png)
