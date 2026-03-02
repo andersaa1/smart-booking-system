@@ -1,9 +1,9 @@
-package com.restaurant.book.records;
+package com.restaurant.book.model;
 
 import java.util.List;
 
 public record Table(
-        String zone,
+        Zone zone,
         Character tableGroup,
         Integer totalSeats,
         List<String> additionalInfo
