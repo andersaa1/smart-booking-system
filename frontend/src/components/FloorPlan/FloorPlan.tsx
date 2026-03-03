@@ -39,7 +39,7 @@ export default function FloorPlan() {
             >
               <div className="zoneLabel" style={zone.labelStyle}>
                 {zone.label}
-            </div>
+              </div>
             </div>
           ))}
         </div>

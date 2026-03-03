@@ -1,16 +1,16 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties } from 'react';
 
-export type Zone = 
-  | 'MAIN' 
+export type Zone =
+  | 'MAIN'
   | 'QUIET'
-  | 'SHOW' 
-  | 'L-PRIVATE' 
-  | 'S-PRIVATE' 
-  | 'TERRACE-S' 
-  | 'TERRACE-E' 
-  | 'STAGE' 
-  | 'BAR' 
-  | 'Q-WC' 
+  | 'SHOW'
+  | 'L-PRIVATE'
+  | 'S-PRIVATE'
+  | 'TERRACE-S'
+  | 'TERRACE-E'
+  | 'STAGE'
+  | 'BAR'
+  | 'Q-WC'
   | 'M-WC';
 
 export type ZoneLayout = {
@@ -22,15 +22,9 @@ export type ZoneLayout = {
   height: number;
   style: CSSProperties;
   labelStyle?: CSSProperties;
-}
+};
 
-export type Preference = 
-  | 'NONE' 
-  | 'WINDOW' 
-  | 'BATHROOM' 
-  | 'PRIVATE' 
-  | 'STAGE' 
-  | 'SHADE';
+export type Preference = 'NONE' | 'WINDOW' | 'BATHROOM' | 'PRIVATE' | 'STAGE' | 'SHADE';
 
 export type Table = {
   zone: Zone;
