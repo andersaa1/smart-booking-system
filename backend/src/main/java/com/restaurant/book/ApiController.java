@@ -19,7 +19,7 @@ public class ApiController {
     );
 
     List<Availability> testAvailability = List.of(
-            new Availability(testTables.get(0), false, 60),
+            new Availability(testTables.get(0), false, 180),
             new Availability(testTables.get(1), true, 0),
             new Availability(testTables.get(2), true, 0),
             new Availability(testTables.get(3), false, 120),
@@ -82,6 +82,18 @@ public class ApiController {
         // preference is a none preference if preferences are not specified
         List<Preference> preferences = body.preferences() == null ? List.of(Preference.NONE) : body.preferences();
 
-        return testRecommendation
+        return testRecommendation;
+    }
+
+    @PostMapping("reservation")
+    public Table reservation(@RequestBody ReservationBody body) {
+        // date & time defaults to now
+        LocalDateTime reservationTime = body.datetime() == null ? LocalDateTime.now() : body.datetime();
+        String name = body.name();
+        int parySize = body.partySize();
+        Table table = body.table();
+        int duration = 180;
+
+        return testTables.get(1);
     }
 }
