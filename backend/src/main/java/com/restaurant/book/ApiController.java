@@ -85,7 +85,7 @@ public class ApiController {
         return testRecommendation;
     }
 
-    @PostMapping("reservation")
+    @PostMapping("/reservation")
     public Table reservation(@RequestBody ReservationBody body) {
         // date & time defaults to now
         LocalDateTime reservationTime = body.datetime() == null ? LocalDateTime.now() : body.datetime();
