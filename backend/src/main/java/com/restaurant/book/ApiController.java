@@ -1,13 +1,8 @@
 package com.restaurant.book;
 
-import com.restaurant.book.model.Availability;
-import com.restaurant.book.model.Table;
-import com.restaurant.book.model.Zone;
+import com.restaurant.book.model.*;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,11 +11,11 @@ import java.util.List;
 @RequestMapping("/api")
 public class ApiController {
     List<Table> testTables = List.of(
-            new Table(Zone.MAIN, 'A', 6, List.of("window", "bathroom")),
-            new Table(Zone.SPECIAL, 'A', 8, List.of("private")),
-            new Table(Zone.SHOW, 'G', 2, List.of("stage")),
+            new Table(Zone.MAIN, 'A', 6, List.of(Preference.WINDOW, Preference.BATHROOM)),
+            new Table(Zone.SPECIAL, 'A', 8, List.of(Preference.PRIVATE)),
+            new Table(Zone.SHOW, 'G', 2, List.of(Preference.STAGE)),
             new Table(Zone.QUIET, 'B', 4, List.of()),
-            new Table(Zone.TERRACE, 'E', 2, List.of("shade"))
+            new Table(Zone.TERRACE, 'E', 2, List.of(Preference.SHADE))
     );
 
     List<Availability> testAvailability = List.of(
@@ -29,6 +24,12 @@ public class ApiController {
             new Availability(testTables.get(2), true, 0),
             new Availability(testTables.get(3), false, 120),
             new Availability(testTables.get(4), true, 0)
+    );
+
+    List<Recommendation> testRecommendation = List.of(
+            new Recommendation(testTables.get(0), 10),
+            new Recommendation(testTables.get(1), 6),
+            new Recommendation(testTables.get(2), 2)
     );
 
     @GetMapping("/tables")
@@ -40,8 +41,8 @@ public class ApiController {
             Integer totalSeats
     ) {
         return testTables.stream()
-                .filter(p -> zone == null || p.zone() == zone)
-                .filter(p -> totalSeats == null || p.totalSeats().equals(totalSeats))
+                .filter(t -> zone == null || t.zone() == zone)
+                .filter(t -> totalSeats == null || t.totalSeats().equals(totalSeats))
                 .toList();
     }
 
@@ -66,8 +67,21 @@ public class ApiController {
         }
 
         return testAvailability.stream()
-                .filter(p -> zone == null || p.table().zone() == zone)
-                .filter(p -> tableGroup == null || p.table().tableGroup().equals(tableGroup))
+                .filter(t -> zone == null || t.table().zone() == zone)
+                .filter(t -> tableGroup == null || t.table().tableGroup().equals(tableGroup))
                 .toList();
+    }
+
+    @PostMapping("/recommendations")
+    public List<Recommendation> recommendations(@RequestBody RecommendationBody body) {
+        // date & time defaults to now
+        LocalDateTime reservationTime = body.datetime() == null ? LocalDateTime.now() : body.datetime();
+        // party size defaults to 1
+        int partySize = body.partySize() == null ? 1 : body.partySize();
+        Zone zone = body.zone(); // could also be null
+        // preference is a none preference if preferences are not specified
+        List<Preference> preferences = body.preferences() == null ? List.of(Preference.NONE) : body.preferences();
+
+        return testRecommendation
     }
 }

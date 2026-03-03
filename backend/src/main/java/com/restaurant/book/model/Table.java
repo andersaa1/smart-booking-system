@@ -6,5 +6,5 @@ public record Table(
         Zone zone,
         Character tableGroup,
         Integer totalSeats,
-        List<String> additionalInfo
+        List<Preference> preferences
 ) {}
