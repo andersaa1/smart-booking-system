@@ -5,5 +5,5 @@ public enum Zone {
     QUIET,
     TERRACE,
     SHOW,
-    SPECIAL
+    PRIVATE
 }

@@ -12,7 +12,7 @@ import java.util.List;
 public class ApiController {
     List<Table> testTables = List.of(
             new Table(Zone.MAIN, 'A', 6, List.of(Preference.WINDOW, Preference.BATHROOM)),
-            new Table(Zone.SPECIAL, 'A', 8, List.of(Preference.PRIVATE)),
+            new Table(Zone.PRIVATE, 'A', 8, List.of(Preference.PRIVATE)),
             new Table(Zone.SHOW, 'G', 2, List.of(Preference.STAGE)),
             new Table(Zone.QUIET, 'B', 4, List.of()),
             new Table(Zone.TERRACE, 'E', 2, List.of(Preference.SHADE))

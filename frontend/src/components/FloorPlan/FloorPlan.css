@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.grid {
+  display: grid;
+}
+
+.zone {
+  display: flex;
+  justify-content: center;
+}
+
+.zoneLabel {
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px black;
+}
