@@ -1,4 +1,4 @@
-package com.restaurant.book.model;
+package com.restaurant.book.dto.response;
 
 public record Availability(
         Table table,

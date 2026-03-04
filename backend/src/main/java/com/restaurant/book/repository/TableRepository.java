@@ -7,6 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TableRepository extends JpaRepository<TableEntity, Long> {
-    List<TableEntity> findByZone(Zone zone);
-    List<TableEntity> findByTotalSeats(Integer totalSeats);
+    List<TableEntity> findByZoneIn(List<Zone> zones);
 }

@@ -1,5 +1,6 @@
-package com.restaurant.book.model;
+package com.restaurant.book.dto.request;
 
+import com.restaurant.book.dto.response.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
