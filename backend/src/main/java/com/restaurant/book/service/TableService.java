@@ -19,7 +19,13 @@ public class TableService {
         this.repository = repository;
     }
 
-    public List<Table> getTables(List<Zone> zones, Integer totalSeats, Integer minSeats, Integer maxSeats, List<Preference> preferences) {
+    public List<Table> getTables(
+            List<Zone> zones,
+            Integer totalSeats,
+            Integer minSeats,
+            Integer maxSeats,
+            List<Preference> preferences
+    ) {
         List<TableEntity> tables;
 
         // filters tables by zone
