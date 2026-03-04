@@ -9,6 +9,7 @@ public class TableMapper {
 
     public static Table toDto(TableEntity entity) {
         return new Table(
+                entity.getId(),
                 entity.getZone(),
                 entity.getTableGroup(),
                 entity.getTotalSeats(),

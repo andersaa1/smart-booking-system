@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface ReservationRepository extends JpaRepository<ReservationEntity, Long> {
 
+    // queries the reservation table for table id's that are between the start and end time
     @Query("""
         select distinct r.table.id
         from ReservationEntity r

@@ -34,6 +34,7 @@ export type Layout = {
 }
 
 export type Table = {
+  id: number;
   zone: Zone;
   tableGroup: string;
   totalSeats: number;
@@ -41,10 +42,9 @@ export type Table = {
   layout: Layout;
 };
 
-export type Availability = {
-  table: Table;
-  available: boolean;
-  unavailableMinutes: number;
+export type Reservation = {
+  datetime: string;
+  reservedTableIds: number[];
 };
 
 export type Recommendation = {

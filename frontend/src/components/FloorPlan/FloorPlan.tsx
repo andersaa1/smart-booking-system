@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import type { Table } from '../../types/types.ts';
+import type { Reservation, Table } from '../../types/types.ts';
 import './FloorPlan.css';
 import { zones } from './zones.ts';
 import { fetchTables } from '../../services/tables.ts';
+import { fetchReservations } from '../../services/reservation.ts';
 
 export default function FloorPlan() {
   const GRID_SIZE_Y: number = 27; // row count
@@ -13,7 +14,9 @@ export default function FloorPlan() {
   const HEIGHT: number = GRID_SIZE_Y * CELL_SIZE; // normalized height of the grid in pixels
 
   const [tables, setTables] = useState<Table[]>([]);
+  const [reservations, setReservations] = useState<Reservation>();
 
+  // fetches table data from the backend API when the component mounts and updates the tables state with the fetched data
   useEffect(() => {
     (async () => {
       try {
@@ -21,6 +24,18 @@ export default function FloorPlan() {
         setTables(data);
       } catch (error) {
         console.error('Error fetching tables:', error);
+      }
+    })();
+  }, []);
+
+  // fetches reservation data from the backend API when the component mounts and updates the reservations state with the fetched data
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await fetchReservations();
+        setReservations(data);
+      } catch (error) {
+        console.error('Error fetching reservations:', error);
       }
     })();
   }, []);
@@ -61,8 +76,8 @@ export default function FloorPlan() {
           {/* renders each table as a div with appropriate styling and positioning based on the tables state */}
           {tables.map((table) => (
             <div
-              key={`${table.zone}-${table.tableGroup}`} // unique key for each table based on its zone and group
-              className="table"
+              key={table.id} // unique key for each table based on its zone and group
+              className={`table ${reservations?.reservedTableIds?.includes(table.id) ? "reserved" : ""}`}
               style={{
                 gridColumn: `${table.layout.col} / span ${table.layout.width}`,
                 gridRow: `${table.layout.row} / span ${table.layout.height}`,

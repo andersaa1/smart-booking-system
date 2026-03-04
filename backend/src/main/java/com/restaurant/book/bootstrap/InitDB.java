@@ -19,8 +19,10 @@ public class InitDB {
     @Bean
     CommandLineRunner initTables(TableRepository tableRepository, ReservationRepository reservationRepository) {
         return args -> {
+            // avoids making duplicates when backend is restarted
             if (tableRepository.count() > 0 || reservationRepository.count() > 0) return;
 
+            // creates the table entities in the database
             // main room
             tableRepository.save(new TableEntity(Zone.MAIN, 'A', 6, 5, 11, 3, 2, Set.of(Preference.NONE)));
             tableRepository.save(new TableEntity(Zone.MAIN, 'B', 6, 5, 14, 3, 2, Set.of(Preference.NONE)));
@@ -59,12 +61,21 @@ public class InitDB {
             tableRepository.save(new TableEntity(Zone.PRIVATE, 'A', 12, 8, 2, 2, 6, Set.of(Preference.NONE)));
             tableRepository.save(new TableEntity(Zone.PRIVATE, 'B', 8, 12, 4, 2, 4, Set.of(Preference.NONE)));
 
-            // test reservations
+            // creates the test reservation entities in the database
             var tables = tableRepository.findAll();
-            var t1 = tables.get(0);
             var start = LocalDateTime.now();
             var end = start.plusHours(3);
-            reservationRepository.save(new ReservationEntity(t1, start, end));
+
+            reservationRepository.save(new ReservationEntity(tables.get(0), start, end));
+            reservationRepository.save(new ReservationEntity(tables.get(5), start, end));
+            reservationRepository.save(new ReservationEntity(tables.get(10), start, end));
+            reservationRepository.save(new ReservationEntity(tables.get(11), start, end));
+            reservationRepository.save(new ReservationEntity(tables.get(12), start, end));
+            reservationRepository.save(new ReservationEntity(tables.get(15), start, end));
+            reservationRepository.save(new ReservationEntity(tables.get(17), start, end));
+            reservationRepository.save(new ReservationEntity(tables.get(20), start, end));
+            reservationRepository.save(new ReservationEntity(tables.get(23), start, end));
+            reservationRepository.save(new ReservationEntity(tables.get(27), start, end));
         };
     }
 }
