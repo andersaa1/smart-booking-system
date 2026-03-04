@@ -17,3 +17,8 @@
   font-weight: bold;
   text-shadow: 1px 1px 1px black;
 }
+
+.table {
+  background-color: rgb(83, 82, 82);
+  border-radius: 5px;
+}

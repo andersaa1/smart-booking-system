@@ -26,11 +26,19 @@ export type ZoneLayout = {
 
 export type Preference = 'NONE' | 'WINDOW' | 'BATHROOM' | 'PRIVATE' | 'STAGE' | 'SHADE';
 
+export type Layout = {
+  col: number;
+  row: number;
+  width: number;
+  height: number;
+}
+
 export type Table = {
   zone: Zone;
-  tableGroup: String;
+  tableGroup: string;
   totalSeats: number;
   preferences: Preference[];
+  layout: Layout;
 };
 
 export type Availability = {

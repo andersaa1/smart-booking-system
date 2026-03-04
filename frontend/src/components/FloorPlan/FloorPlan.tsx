@@ -1,5 +1,8 @@
+import { useEffect, useState } from 'react';
+import type { Table } from '../../types/types.ts';
 import './FloorPlan.css';
 import { zones } from './zones.ts';
+import { fetchTables } from '../../services/tables.ts';
 
 export default function FloorPlan() {
   const GRID_SIZE_Y: number = 27; // row count
@@ -8,6 +11,19 @@ export default function FloorPlan() {
 
   const WIDTH: number = GRID_SIZE_X * CELL_SIZE; // normalized width of the grid in pixels
   const HEIGHT: number = GRID_SIZE_Y * CELL_SIZE; // normalized height of the grid in pixels
+
+  const [tables, setTables] = useState<Table[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await fetchTables();
+        setTables(data);
+      } catch (error) {
+        console.error('Error fetching tables:', error);
+      }
+    })();
+  }, []);
 
   return (
     <div>
@@ -40,6 +56,19 @@ export default function FloorPlan() {
               <div className="zoneLabel" style={zone.labelStyle}>
                 {zone.label}
               </div>
+            </div>
+          ))}
+          {/* renders each table as a div with appropriate styling and positioning based on the tables state */}
+          {tables.map((table) => (
+            <div
+              key={`${table.zone}-${table.tableGroup}`} // unique key for each table based on its zone and group
+              className="table"
+              style={{
+                gridColumn: `${table.layout.col} / span ${table.layout.width}`,
+                gridRow: `${table.layout.row} / span ${table.layout.height}`,
+              }}
+            >
+              {table.tableGroup}
             </div>
           ))}
         </div>

@@ -1,4 +1,4 @@
-import type { ZoneLayout } from '../../types.ts';
+import type { ZoneLayout } from '../../types/types.ts';
 
 export const zones: ZoneLayout[] = [
   {
