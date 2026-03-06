@@ -5,7 +5,11 @@ import { zones } from './zones.ts';
 import { fetchTables } from '../../services/tables.ts';
 import { fetchReservations } from '../../services/reservation.ts';
 
-export default function FloorPlan() {
+type Props = {
+  datetime: Date | null;
+}
+
+export default function FloorPlan({ datetime }: Props) {
   const GRID_SIZE_Y: number = 27; // row count
   const GRID_SIZE_X: number = 25; // column count
   const CELL_SIZE: number = 30; // size of each cell in pixels
@@ -14,7 +18,7 @@ export default function FloorPlan() {
   const HEIGHT: number = GRID_SIZE_Y * CELL_SIZE; // normalized height of the grid in pixels
 
   const [tables, setTables] = useState<Table[]>([]);
-  const [reservations, setReservations] = useState<Reservation>();
+  const [reservations, setReservations] = useState<Reservation | null>(null);
 
   // fetches table data from the backend API when the component mounts and updates the tables state with the fetched data
   useEffect(() => {
@@ -32,13 +36,13 @@ export default function FloorPlan() {
   useEffect(() => {
     (async () => {
       try {
-        const data = await fetchReservations();
+        const data = await fetchReservations(datetime);
         setReservations(data);
       } catch (error) {
         console.error('Error fetching reservations:', error);
       }
     })();
-  }, []);
+  }, [datetime]); // refetch reservations whenever the selected datetime changes
 
   return (
     <div>
