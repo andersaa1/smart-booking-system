@@ -24,7 +24,7 @@ export type ZoneLayout = {
   labelStyle?: CSSProperties;
 };
 
-export type Preference = 'NONE' | 'WINDOW' | 'BATHROOM' | 'PRIVATE' | 'STAGE' | 'SHADE';
+export type Preference = 'WINDOW' | 'BATHROOM' | 'PRIVATE' | 'STAGE' | 'SHADE';
 
 export type Layout = {
   col: number;
