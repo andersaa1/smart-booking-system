@@ -3,6 +3,7 @@ package com.restaurant.book.controller;
 import com.restaurant.book.dto.request.RecommendationBody;
 import com.restaurant.book.dto.response.Recommendation;
 import com.restaurant.book.model.Preference;
+import com.restaurant.book.service.RecommendationService;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class RecommendationController {
 
+  private final RecommendationService recommendationService;
+
+  public RecommendationController(RecommendationService recommendationService) {
+    this.recommendationService = recommendationService;
+  }
+
   @PostMapping("/recommendations")
   public List<Recommendation> recommendations(@RequestBody RecommendationBody body) {
     // date & time defaults to now
@@ -24,6 +31,6 @@ public class RecommendationController {
     List<Preference> preferences =
         body.preferences() == null ? List.of(Preference.NONE) : body.preferences();
 
-    return null;
+    return recommendationService.getRecommendations(reservationTime, partySize, preferences);
   }
 }
