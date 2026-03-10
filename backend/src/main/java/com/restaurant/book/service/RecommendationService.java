@@ -1,9 +1,7 @@
 package com.restaurant.book.service;
 
-import com.restaurant.book.dto.response.Layout;
 import com.restaurant.book.dto.response.Recommendation;
 import com.restaurant.book.dto.response.Reservation;
-import com.restaurant.book.dto.response.Table;
 import com.restaurant.book.model.Preference;
 import com.restaurant.book.model.TableEntity;
 import com.restaurant.book.repository.TableRepository;
@@ -49,20 +47,7 @@ public class RecommendationService {
     List<Recommendation> recommendedTables =
         availableTables.stream()
             .map(
-                table ->
-                    new Recommendation(
-                        new Table(
-                            table.getId(),
-                            table.getZone(),
-                            table.getTableGroup(),
-                            table.getTotalSeats(),
-                            table.getPreferences(),
-                            new Layout(
-                                table.getCol(),
-                                table.getRow(),
-                                table.getWidth(),
-                                table.getHeight())),
-                        getScore(table, partySize, preferences)))
+                table -> new Recommendation(table.getId(), getScore(table, partySize, preferences)))
             .toList();
 
     // gets three tables with the best score
