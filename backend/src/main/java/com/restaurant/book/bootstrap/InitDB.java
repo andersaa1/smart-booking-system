@@ -20,7 +20,9 @@ public class InitDB {
       TableRepository tableRepository, ReservationRepository reservationRepository) {
     return args -> {
       // avoids making duplicates when backend is restarted
-      if (tableRepository.count() > 0 || reservationRepository.count() > 0) return;
+      if (tableRepository.count() > 0 || reservationRepository.count() > 0) {
+        return;
+      }
 
       // creates the table entities in the database
       // main room
