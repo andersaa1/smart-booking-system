@@ -18,3 +18,41 @@ The layout of the restaurant might change in the future. The mock-restaurant flo
 </br>
 
 <img src="docs/floor-plan.png" alt="Restaurant floor plan" width=500px>
+
+## Code Quality
+
+The project enforces consistent code quality rules in both the backend files and frontend files.
+
+### Frontend
+Frontend code quality is handled with:
+- **ESLint** for linting
+- **Prettier** for formatting
+
+Linting rules are defined in [eslint.config.js](/frontend/eslint.config.js) </br>
+Formatting rules are defined in [.prettierrc](/frontend/.prettierrc) </br>
+</br>
+Linting and formatting are applied to only `.ts` and `.tsx` files.
+
+### Backend
+Backend code quality is handled with:
+- **Checkstyle** for linting
+- **Spotless** with **google-java-format** for formatting
+
+Linting rules are defined in [checkstyle.xml](/backend/config/checkstyle.xml)
+
+### Local Commands
+Frontend:
+```bash
+cd frontend
+npm run lint:check
+npm run lint
+npm run format:check
+npm run format
+```
+Backend:
+```bash
+cd backend
+./mvnw checkstyle:check
+./mvnw spotless:check
+./mvnw spotless:apply
+```
