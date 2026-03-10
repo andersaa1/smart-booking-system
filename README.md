@@ -28,8 +28,8 @@ Frontend code quality is handled with:
 - **ESLint** for linting
 - **Prettier** for formatting
 
-Linting rules are defined in [eslint.config.js](/frontend/eslint.config.js) </br>
-Formatting rules are defined in [.prettierrc](/frontend/.prettierrc) </br>
+Linting rules are defined in [eslint.config.js](/frontend/eslint.config.js). </br>
+Formatting rules are defined in [.prettierrc](/frontend/.prettierrc). </br>
 </br>
 Linting and formatting are applied to only `.ts` and `.tsx` files.
 
@@ -38,7 +38,7 @@ Backend code quality is handled with:
 - **Checkstyle** for linting
 - **Spotless** with **google-java-format** for formatting
 
-Linting rules are defined in [checkstyle.xml](/backend/config/checkstyle.xml)
+Linting rules are defined in [checkstyle.xml](/backend/config/checkstyle.xml).
 
 ### Local Commands
 Frontend:
@@ -56,3 +56,15 @@ cd backend
 ./mvnw spotless:check
 ./mvnw spotless:apply
 ```
+
+## CI/CD Pipeline
+GitHub Actions is used to run code quality checks on every push and pull request to the `main` branch.
+</br>
+The pipeline contains four jobs:
+* frontend lint
+* backend lint
+* frontend format
+* backend format
+
+### Lint and Format Jobs
+The pipeline only validates the code, by executing `...:check` commands. Formatting fixes must be applied locally before pushing changes.
