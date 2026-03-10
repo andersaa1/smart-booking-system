@@ -23,6 +23,10 @@ export default defineConfig([
     },
     rules: {
       'prettier/prettier': 'error',
+      '@typescript-eslint/array-type': ['error', { default: 'array' }],
+      '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'as' }],
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'error',
     },
     languageOptions: {
       ecmaVersion: 2020,

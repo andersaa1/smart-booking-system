@@ -31,7 +31,7 @@ export type Layout = {
   row: number;
   width: number;
   height: number;
-}
+};
 
 export type Table = {
   id: number;

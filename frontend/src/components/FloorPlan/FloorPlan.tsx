@@ -7,7 +7,7 @@ import { fetchReservations } from '../../services/reservation.ts';
 
 type Props = {
   datetime: Date | null;
-}
+};
 
 export default function FloorPlan({ datetime }: Props) {
   const GRID_SIZE_Y: number = 27; // row count
@@ -81,7 +81,7 @@ export default function FloorPlan({ datetime }: Props) {
           {tables.map((table) => (
             <div
               key={table.id} // unique key for each table based on its zone and group
-              className={`table ${reservations?.reservedTableIds?.includes(table.id) ? "reserved" : ""}`}
+              className={`table ${reservations?.reservedTableIds?.includes(table.id) ? 'reserved' : ''}`}
               style={{
                 gridColumn: `${table.layout.col} / span ${table.layout.width}`,
                 gridRow: `${table.layout.row} / span ${table.layout.height}`,

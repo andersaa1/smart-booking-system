@@ -12,15 +12,18 @@ export default function RestaurantView() {
     <div style={{ display: 'flex', height: '100vh', width: '100vw' }}>
       {/* floor plan on the left side of the screen */}
       <div style={{ flex: 2 }}>
-        <FloorPlan datetime={datetime}/>
+        <FloorPlan datetime={datetime} />
       </div>
 
       {/* reservation layout on the right side of the screen */}
       <div style={{ flex: 1, backgroundColor: '#201f1f' }}>
         <ReservationLayout
-          datetime={datetime} setDatetime={setDatetime}
-          partySize={partySize} setPartySize={setPartySize}
-          preferences={preferences} setPreferences={setPreferences}
+          datetime={datetime}
+          setDatetime={setDatetime}
+          partySize={partySize}
+          setPartySize={setPartySize}
+          preferences={preferences}
+          setPreferences={setPreferences}
         />
       </div>
     </div>
