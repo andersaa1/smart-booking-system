@@ -6,8 +6,9 @@ type Props = {
 };
 
 export default function CustomButton({ label, onClick }: Props) {
-  return;
+  return (
   <button className="button" onClick={onClick}>
     {label}
-  </button>;
+  </button>
+  );
 }

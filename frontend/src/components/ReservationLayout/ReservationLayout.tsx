@@ -3,6 +3,7 @@ import type { Preference } from '../../types/types';
 import DateTimePicker from './DateTimePicker';
 import NumberField from './NumberField';
 import PreferencePicker from './PreferenePicker';
+import CustomButton from '../CustomButton';
 
 type Props = {
   datetime: Date | null;
@@ -11,6 +12,7 @@ type Props = {
   setPartySize: (partySize: number) => void;
   preferences: Preference[] | null;
   setPreferences: (preferences: Preference[] | null) => void;
+  onGetRecommendations: () => void;
 };
 
 export default function ReservationLayout({
@@ -20,6 +22,7 @@ export default function ReservationLayout({
   setPartySize,
   preferences,
   setPreferences,
+  onGetRecommendations
 }: Props) {
   return (
     <div>
@@ -31,6 +34,7 @@ export default function ReservationLayout({
         <DateTimePicker datetime={datetime} setDatetime={setDatetime} />
         <NumberField partySize={partySize} setPartySize={setPartySize} />
         <PreferencePicker preferences={preferences} setPreferences={setPreferences} />
+        <CustomButton label="Get Recommendations" onClick={onGetRecommendations}/>
       </div>
     </div>
   );

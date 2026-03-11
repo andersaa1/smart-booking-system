@@ -48,6 +48,6 @@ export type Reservation = {
 };
 
 export type Recommendation = {
-  table: Table;
+  tableId: number;
   score: number;
 };
