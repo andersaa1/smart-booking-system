@@ -10,6 +10,8 @@ type Props = {
   datetime: Date | null;
   showRecommendationHighlights: boolean;
   showSelectedHighlight: boolean;
+  isManualMode: boolean;
+  onTableClick: (tableId: number) => void;
 };
 
 export default function FloorPlan({
@@ -19,6 +21,8 @@ export default function FloorPlan({
   selectedTableId,
   showRecommendationHighlights,
   showSelectedHighlight,
+  isManualMode,
+  onTableClick,
 }: Props) {
   const GRID_SIZE_Y: number = 27; // row count
   const GRID_SIZE_X: number = 25; // column count
@@ -70,13 +74,29 @@ export default function FloorPlan({
 
             const isSelected = showSelectedHighlight && selectedTableId === table.id;
 
+            const isClickable = isManualMode && !isReserved;
+
             return (
               <div
                 key={table.id}
-                className={`table ${isReserved ? 'reserved' : ''} ${isRecommended ? 'recommended' : ''} ${isSelected ? 'selected' : ''}`}
+                className={`table
+                    ${isReserved ? 'reserved' : ''} 
+                    ${isRecommended ? 'recommended' : ''} 
+                    ${isSelected ? 'selected' : ''}
+                    ${isManualMode ? 'manual-picking' : ''}
+                    ${isClickable ? 'clickable' : ''}
+                    ${isManualMode && isReserved ? 'blocked' : ''}
+                  `}
                 style={{
                   gridColumn: `${table.layout.col} / span ${table.layout.width}`,
                   gridRow: `${table.layout.row} / span ${table.layout.height}`,
+                }}
+                onClick={() => {
+                  if (!isClickable) {
+                    return;
+                  }
+
+                  onTableClick(table.id);
                 }}
               >
                 {table.tableGroup}

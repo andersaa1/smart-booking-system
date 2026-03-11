@@ -53,6 +53,7 @@ export default function RestaurantView() {
     })();
   }, [datetime]); // refetch reservations whenever the selected datetime changes
 
+  // handlers
   function handleSelectTable(tableId: number) {
     if (selectedTableId === tableId) {
       setSelectedTableId(null);
@@ -233,6 +234,8 @@ export default function RestaurantView() {
           selectedTableId={selectedTableId}
           showRecommendationHighlights={showRecommendationHighlights}
           showSelectedHighlight={showSelectedHighlight}
+          isManualMode={currentView === 'manualPicker'}
+          onTableClick={handleSelectTable}
         />
       </div>
 
