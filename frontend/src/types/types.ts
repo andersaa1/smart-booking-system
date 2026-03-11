@@ -1,5 +1,12 @@
 import type { CSSProperties } from 'react';
 
+export type LayoutScreen =
+  | 'reservation'
+  | 'recommendations'
+  | 'manualPicker'
+  | 'createReservation'
+  | 'thankYou';
+
 export type Zone =
   | 'MAIN'
   | 'QUIET'

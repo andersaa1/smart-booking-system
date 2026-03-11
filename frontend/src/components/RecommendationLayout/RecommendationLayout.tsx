@@ -6,16 +6,20 @@ type Props = {
   recommendations: Recommendation[];
   tables: Table[];
   selectedTableId: number | null;
-  setSelectedTableId: (tableId: number | null) => void;
+  onSelectTable: (tableId: number) => void;
   onGoBack: () => void;
+  onReserveTable: () => void;
+  onChooseManually: () => void;
 };
 
 export default function RecommendationLayout({
   recommendations,
   tables,
   selectedTableId,
-  setSelectedTableId,
+  onSelectTable,
   onGoBack,
+  onReserveTable,
+  onChooseManually,
 }: Props) {
   return (
     <div>
@@ -54,7 +58,7 @@ export default function RecommendationLayout({
                     score={recommendation.score}
                     isSelected={isSelected}
                     isDimmed={isDimmed}
-                    onClick={() => setSelectedTableId(isSelected ? null : recommendation.tableId)}
+                    onClick={() => onSelectTable(recommendation.tableId)}
                   />
                 </div>
               );
@@ -67,13 +71,13 @@ export default function RecommendationLayout({
           <CustomButton label="Go Back" onClick={onGoBack} />
           <CustomButton
             label="Reserve Table"
-            onClick={onGoBack}
+            onClick={onReserveTable}
             disabled={selectedTableId === null}
           />
         </div>
 
         <div className="button-row-single">
-          <CustomButton label="Choose a Table Manually" onClick={onGoBack} />
+          <CustomButton label="Choose a Table Manually" onClick={onChooseManually} />
         </div>
       </div>
     </div>

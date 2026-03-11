@@ -8,6 +8,8 @@ type Props = {
   recommendations: Recommendation[];
   selectedTableId: number | null;
   datetime: Date | null;
+  showRecommendationHighlights: boolean;
+  showSelectedHighlight: boolean;
 };
 
 export default function FloorPlan({
@@ -15,6 +17,8 @@ export default function FloorPlan({
   reservations,
   recommendations,
   selectedTableId,
+  showRecommendationHighlights,
+  showSelectedHighlight,
 }: Props) {
   const GRID_SIZE_Y: number = 27; // row count
   const GRID_SIZE_X: number = 25; // column count
@@ -57,22 +61,28 @@ export default function FloorPlan({
             </div>
           ))}
           {/* renders each table as a div with appropriate styling and positioning based on the tables state */}
-          {tables.map((table) => (
-            <div
-              key={table.id} // unique key for each table based on its zone and group
-              className={`table 
-                ${reservations?.reservedTableIds?.includes(table.id) ? 'reserved' : ''}
-                ${recommendations.length > 0 && recommendations.some((r) => r.tableId === table.id) ? 'recommended' : ''}
-                ${selectedTableId === table.id ? 'selected' : ''}
-              `}
-              style={{
-                gridColumn: `${table.layout.col} / span ${table.layout.width}`,
-                gridRow: `${table.layout.row} / span ${table.layout.height}`,
-              }}
-            >
-              {table.tableGroup}
-            </div>
-          ))}
+          {tables.map((table) => {
+            const isReserved = reservations?.reservedTableIds?.includes(table.id) ?? false;
+
+            const isRecommended =
+              showRecommendationHighlights &&
+              recommendations.some((recommendation) => recommendation.tableId === table.id);
+
+            const isSelected = showSelectedHighlight && selectedTableId === table.id;
+
+            return (
+              <div
+                key={table.id}
+                className={`table ${isReserved ? 'reserved' : ''} ${isRecommended ? 'recommended' : ''} ${isSelected ? 'selected' : ''}`}
+                style={{
+                  gridColumn: `${table.layout.col} / span ${table.layout.width}`,
+                  gridRow: `${table.layout.row} / span ${table.layout.height}`,
+                }}
+              >
+                {table.tableGroup}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

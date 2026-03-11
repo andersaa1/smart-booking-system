@@ -1,24 +1,33 @@
 import { useState, useEffect } from 'react';
 import { fetchTables } from '../services/tables';
 import { fetchReservations } from '../services/reservation';
-import type { Table, Reservation, Preference, Recommendation } from '../types/types';
+import type { LayoutScreen, Table, Reservation, Preference, Recommendation } from '../types/types';
 import FloorPlan from '../components/FloorPlan/FloorPlan';
 import ReservationLayout from '../components/ReservationLayout/ReservationLayout';
 import { fetchRecommendations } from '../services/recommendations';
 import RecommendationLayout from '../components/RecommendationLayout/RecommendationLayout';
+import ManualPickerLayout from '../components/ManualPickerLayout/ManualPickerLayout';
+import CreateReservationLayout from '../components/CreateReservationLayout/CreateReservationLayout';
+import ThankYouLayout from '../components/ThankYouLayout/ThankYouLayout';
 
 export default function RestaurantView() {
+  // navigational states
+  const [currentView, setCurrentView] = useState<LayoutScreen>('reservation');
+  const [returnView, setReturnView] = useState<
+    'reservation' | 'recommendations' | 'manualPicker' | null
+  >(null);
+
+  // floor plan table states
   const [tables, setTables] = useState<Table[]>([]);
   const [reservations, setReservations] = useState<Reservation | null>(null);
+  const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
+  const [selectedTableId, setSelectedTableId] = useState<number | null>(null);
+  const [showRecommendationHighlights, setShowRecommendationHighlights] = useState(false);
+  const [showSelectedHighlight, setShowSelectedHighlight] = useState(false);
 
   const [datetime, setDatetime] = useState<Date | null>(new Date());
   const [partySize, setPartySize] = useState<number>(1);
   const [preferences, setPreferences] = useState<Preference[] | null>(null);
-
-  const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
-  const [showRecommendationsLayout, setShowRecommendationsLayout] = useState<boolean>(false);
-
-  const [selectedTableId, setSelectedTableId] = useState<number | null>(null);
 
   // fetches table data from the backend API when the component mounts and updates the tables state with the fetched data
   useEffect(() => {
@@ -44,19 +53,172 @@ export default function RestaurantView() {
     })();
   }, [datetime]); // refetch reservations whenever the selected datetime changes
 
+  function handleSelectTable(tableId: number) {
+    if (selectedTableId === tableId) {
+      setSelectedTableId(null);
+      setShowSelectedHighlight(false);
+      return;
+    }
+
+    setSelectedTableId(tableId);
+    setShowSelectedHighlight(true);
+  }
+
+  // navigational handlers
+  // ReservationLayout -> RecommendationLayout
   async function handleRecommendations() {
     const data = await fetchRecommendations(datetime, partySize, preferences);
 
     if (data) {
       setRecommendations(data);
-      setShowRecommendationsLayout(true);
+      setSelectedTableId(null);
+      setShowRecommendationHighlights(true);
+      setShowSelectedHighlight(false);
+      setCurrentView('recommendations');
     }
   }
 
-  function goBack() {
-    setShowRecommendationsLayout(false);
-    setRecommendations([]);
+  // ReservationLayout -> ManualPickerLayout
+  function handleManualFromReservation() {
     setSelectedTableId(null);
+    setShowRecommendationHighlights(false);
+    setShowSelectedHighlight(false);
+    setReturnView('reservation');
+    setCurrentView('manualPicker');
+  }
+
+  // RecommendationLayoout -> ManualPickerLayout
+  function handleManualFromRecommendations() {
+    setSelectedTableId(null);
+    setShowRecommendationHighlights(false);
+    setShowSelectedHighlight(false);
+    setReturnView('recommendations');
+    setCurrentView('manualPicker');
+  }
+
+  // RecommendationLayout -> ReservationLayout
+  function handleReservationFromRecommendations() {
+    setSelectedTableId(null);
+    setShowRecommendationHighlights(false);
+    setShowSelectedHighlight(false);
+    setCurrentView('reservation');
+  }
+
+  // RecommendationLayout -> CreateReservationLayout
+  function handleCreateReservationFromRecommendations() {
+    setShowRecommendationHighlights(false);
+    setShowSelectedHighlight(true);
+    setReturnView('recommendations');
+    setCurrentView('createReservation');
+  }
+
+  // ManualPickerLayout -> RecommendationLayout OR ReservationLayout
+  function handleBackFromManual() {
+    if (returnView === 'recommendations') {
+      setSelectedTableId(null);
+      setShowRecommendationHighlights(true);
+      setShowSelectedHighlight(false);
+      setCurrentView('recommendations');
+      return;
+    }
+    setSelectedTableId(null);
+    setShowRecommendationHighlights(false);
+    setShowSelectedHighlight(false);
+    setCurrentView('reservation');
+  }
+
+  // ManualPickerLayout -> CreateReservationLayout
+  function handleCreateReservationfromManual() {
+    setShowRecommendationHighlights(false);
+    setShowSelectedHighlight(true);
+    setReturnView('manualPicker');
+    setCurrentView('createReservation');
+  }
+
+  // CreateReservationLayout -> RecommendationLayout OR ManualPickerLayout
+  function handleBackFromCreateReservation() {
+    if (returnView === 'recommendations') {
+      setSelectedTableId(null);
+      setShowRecommendationHighlights(true);
+      setShowSelectedHighlight(false);
+      setCurrentView('recommendations');
+      return;
+    }
+  }
+
+  // CreateReservationLayout -> ThankYouLayout
+  function handleThanksFromReservation() {
+    setSelectedTableId(null);
+    setShowRecommendationHighlights(false);
+    setShowSelectedHighlight(false);
+    setCurrentView('thankYou');
+  }
+
+  // ThankYouLayout -> ReservationLayout
+  function handleReservationFromThanks() {
+    setSelectedTableId(null);
+    setRecommendations([]);
+    setShowRecommendationHighlights(false);
+    setShowSelectedHighlight(false);
+    setCurrentView('reservation');
+  }
+
+  // switches between layout panels
+  function switchLayout() {
+    switch (currentView) {
+      case 'reservation':
+        return (
+          <ReservationLayout
+            datetime={datetime}
+            setDatetime={setDatetime}
+            partySize={partySize}
+            setPartySize={setPartySize}
+            preferences={preferences}
+            setPreferences={setPreferences}
+            onGetRecommendations={handleRecommendations}
+            onChooseManually={handleManualFromReservation}
+          />
+        );
+
+      case 'recommendations':
+        return (
+          <RecommendationLayout
+            recommendations={recommendations}
+            tables={tables}
+            selectedTableId={selectedTableId}
+            onSelectTable={handleSelectTable}
+            onGoBack={handleReservationFromRecommendations}
+            onReserveTable={handleCreateReservationFromRecommendations}
+            onChooseManually={handleManualFromRecommendations}
+          />
+        );
+
+      case 'manualPicker':
+        return (
+          <ManualPickerLayout
+            tables={tables}
+            selectedTableId={selectedTableId}
+            setSelectedTableId={setSelectedTableId}
+            onGoBack={handleBackFromManual}
+            onReserveTable={handleCreateReservationfromManual}
+          />
+        );
+
+      case 'createReservation':
+        return (
+          <CreateReservationLayout
+            selectedTableId={selectedTableId}
+            onChangeTable={handleBackFromCreateReservation}
+            onCreateReservation={handleThanksFromReservation}
+          />
+        );
+
+      case 'thankYou':
+        return <ThankYouLayout onHome={handleReservationFromThanks} />;
+
+      default:
+        return null;
+    }
   }
 
   return (
@@ -69,32 +231,12 @@ export default function RestaurantView() {
           datetime={datetime}
           recommendations={recommendations}
           selectedTableId={selectedTableId}
+          showRecommendationHighlights={showRecommendationHighlights}
+          showSelectedHighlight={showSelectedHighlight}
         />
       </div>
 
-      <div style={{ flex: 1, backgroundColor: '#201f1f' }}>
-        {showRecommendationsLayout ? (
-          // layout for showing recommendations
-          <RecommendationLayout
-            recommendations={recommendations}
-            tables={tables}
-            selectedTableId={selectedTableId}
-            setSelectedTableId={setSelectedTableId}
-            onGoBack={goBack}
-          />
-        ) : (
-          // layout for getting recommendations
-          <ReservationLayout
-            datetime={datetime}
-            setDatetime={setDatetime}
-            partySize={partySize}
-            setPartySize={setPartySize}
-            preferences={preferences}
-            setPreferences={setPreferences}
-            onGetRecommendations={handleRecommendations}
-          />
-        )}
-      </div>
+      <div style={{ flex: 1, backgroundColor: '#201f1f' }}>{switchLayout()}</div>
     </div>
   );
 }
