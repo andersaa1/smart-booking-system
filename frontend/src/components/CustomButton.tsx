@@ -7,8 +7,8 @@ type Props = {
 
 export default function CustomButton({ label, onClick }: Props) {
   return (
-  <button className="button" onClick={onClick}>
-    {label}
-  </button>
+    <button className="button" onClick={onClick}>
+      {label}
+    </button>
   );
 }

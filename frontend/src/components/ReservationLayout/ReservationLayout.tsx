@@ -22,7 +22,7 @@ export default function ReservationLayout({
   setPartySize,
   preferences,
   setPreferences,
-  onGetRecommendations
+  onGetRecommendations,
 }: Props) {
   return (
     <div>
@@ -34,7 +34,7 @@ export default function ReservationLayout({
         <DateTimePicker datetime={datetime} setDatetime={setDatetime} />
         <NumberField partySize={partySize} setPartySize={setPartySize} />
         <PreferencePicker preferences={preferences} setPreferences={setPreferences} />
-        <CustomButton label="Get Recommendations" onClick={onGetRecommendations}/>
+        <CustomButton label="Get Recommendations" onClick={onGetRecommendations} />
       </div>
     </div>
   );

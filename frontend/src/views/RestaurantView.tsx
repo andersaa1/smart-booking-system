@@ -19,28 +19,28 @@ export default function RestaurantView() {
   const [showRecommendationsLayout, setShowRecommendationsLayout] = useState<boolean>(false);
 
   // fetches table data from the backend API when the component mounts and updates the tables state with the fetched data
-      useEffect(() => {
-        (async () => {
-          try {
-            const data = await fetchTables();
-            setTables(data);
-          } catch (error) {
-            console.error('Error fetching tables:', error);
-          }
-        })();
-      }, []);
-    
-      // fetches reservation data from the backend API when the component mounts and updates the reservations state with the fetched data
-    useEffect(() => {
-      (async () => {
-        try {
-          const data = await fetchReservations(datetime);
-          setReservations(data);
-        } catch (error) {
-          console.error('Error fetching reservations:', error);
-        }
-      })();
-    }, [datetime]); // refetch reservations whenever the selected datetime changes
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await fetchTables();
+        setTables(data);
+      } catch (error) {
+        console.error('Error fetching tables:', error);
+      }
+    })();
+  }, []);
+
+  // fetches reservation data from the backend API when the component mounts and updates the reservations state with the fetched data
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await fetchReservations(datetime);
+        setReservations(data);
+      } catch (error) {
+        console.error('Error fetching reservations:', error);
+      }
+    })();
+  }, [datetime]); // refetch reservations whenever the selected datetime changes
 
   async function handleRecommendations() {
     const data = await fetchRecommendations(datetime, partySize, preferences);
@@ -59,33 +59,29 @@ export default function RestaurantView() {
     <div style={{ display: 'flex', height: '100vh', width: '100vw' }}>
       {/* floor plan on the left side of the screen */}
       <div style={{ flex: 2 }}>
-        <FloorPlan 
-          tables={tables} 
-          reservations={reservations} 
-          datetime={datetime} 
-        />
+        <FloorPlan tables={tables} reservations={reservations} datetime={datetime} />
       </div>
 
       <div style={{ flex: 1, backgroundColor: '#201f1f' }}>
-      {showRecommendationsLayout ? (
-        // layout for showing recommendatoins
-        <RecommendationLayout
-          recommendations={recommendations}
-          tables={tables}
-          onGoBack={goBack}  
-        />
-      ) : (
-        // layout for getting recommendations
-        <ReservationLayout
-          datetime={datetime}
-          setDatetime={setDatetime}
-          partySize={partySize}
-          setPartySize={setPartySize}
-          preferences={preferences}
-          setPreferences={setPreferences}
-          onGetRecommendations={handleRecommendations}
-        />
-      )}
+        {showRecommendationsLayout ? (
+          // layout for showing recommendatoins
+          <RecommendationLayout
+            recommendations={recommendations}
+            tables={tables}
+            onGoBack={goBack}
+          />
+        ) : (
+          // layout for getting recommendations
+          <ReservationLayout
+            datetime={datetime}
+            setDatetime={setDatetime}
+            partySize={partySize}
+            setPartySize={setPartySize}
+            preferences={preferences}
+            setPreferences={setPreferences}
+            onGetRecommendations={handleRecommendations}
+          />
+        )}
       </div>
     </div>
   );
