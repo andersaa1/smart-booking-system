@@ -1,14 +1,5 @@
 import type { Reservation } from '../types/types.ts';
-
-function formatDatetime(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-
-  return `${year}-${month}-${day}T${hours}:${minutes}:00`;
-}
+import formatDatetime from '../utils/formatDatetime.ts';
 
 export async function fetchReservations(dateTime: Date | null = null): Promise<Reservation | null> {
   try {
@@ -18,8 +9,6 @@ export async function fetchReservations(dateTime: Date | null = null): Promise<R
       const formattedDateTime = formatDatetime(dateTime);
       url += `?datetime=${encodeURIComponent(formattedDateTime)}`;
     }
-
-    console.log('fetchReservations URL:', url);
 
     const res = await fetch(url);
 
