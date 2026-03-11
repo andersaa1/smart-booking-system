@@ -1,14 +1,15 @@
-import type { Reservation, Table } from '../../types/types.ts';
+import type { Reservation, Table, Recommendation } from '../../types/types.ts';
 import './FloorPlan.css';
 import { zones } from './zones.ts';
 
 type Props = {
   tables: Table[];
   reservations: Reservation | null;
+  recommendations: Recommendation[];
   datetime: Date | null;
 };
 
-export default function FloorPlan({ tables, reservations }: Props) {
+export default function FloorPlan({ tables, reservations, recommendations }: Props) {
   const GRID_SIZE_Y: number = 27; // row count
   const GRID_SIZE_X: number = 25; // column count
   const CELL_SIZE: number = 30; // size of each cell in pixels
@@ -53,7 +54,10 @@ export default function FloorPlan({ tables, reservations }: Props) {
           {tables.map((table) => (
             <div
               key={table.id} // unique key for each table based on its zone and group
-              className={`table ${reservations?.reservedTableIds?.includes(table.id) ? 'reserved' : ''}`}
+              className={`table 
+                ${reservations?.reservedTableIds?.includes(table.id) ? 'reserved' : ''}
+                ${recommendations.length > 0 && recommendations.some((r) => r.tableId === table.id) ? 'recommended' : ''}
+              `}
               style={{
                 gridColumn: `${table.layout.col} / span ${table.layout.width}`,
                 gridRow: `${table.layout.row} / span ${table.layout.height}`,
