@@ -1,9 +1,23 @@
 .card {
     background-color: rgb(255, 255, 255);
     width: 300px;
-    padding: 16px;
+    padding: 5px;
     border-radius: 20px;
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    border: 2px solid #55a62f00;
+}
+
+.card:hover {
+  cursor: pointer;
+}
+
+.card.selected {
+  border: 2px solid #55a62f;
+  box-shadow: 0 0 10px rgba(1, 255, 26, 0.4);
+}
+
+.card.dimmed {
+  opacity: 0.45;
 }
 
 .cardContainer {
@@ -11,7 +25,7 @@
     flex-direction: column;
     align-items: center;
     gap: 25px;
-    padding-bottom: 40px;
+    padding-bottom: 10px;
 }
 
 .tag {
@@ -53,4 +67,38 @@
     padding: 5px 12px;
     background-color: rgb(229, 113, 113);
     border-radius: 999px;
+}
+
+.instruction {
+    color: white;
+    margin-bottom: 8px;
+    min-height: 25px;
+    font-weight: lighter;
+    font-size: 12px;
+}
+
+.button-cluster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.button-row {
+  display: flex;
+  gap: 20px;
+}
+
+.button-row-single {
+  display: flex;
+}
+
+.button-row button {
+  width: 150px;
+  margin-bottom: 15px;
+}
+
+.button-row-single button {
+    background-color: #ccf8ce;
 }

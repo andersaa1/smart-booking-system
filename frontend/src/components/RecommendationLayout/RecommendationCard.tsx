@@ -3,16 +3,32 @@ import type { Zone } from '../../types/types';
 import { zoneLabels } from '../../utils/zoneLabels';
 
 type Props = {
+  tableId: number;
   rank: number;
   zone: Zone;
   tableGroup: string;
   totalSeats: number;
   score: number;
+  isSelected: boolean;
+  isDimmed: boolean;
+  onClick: () => void;
 };
 
-export default function RecommendationCard({ zone, rank, tableGroup, totalSeats, score }: Props) {
+export default function RecommendationCard({
+  zone,
+  rank,
+  tableGroup,
+  totalSeats,
+  score,
+  isSelected,
+  isDimmed,
+  onClick,
+}: Props) {
   return (
-    <div className="card">
+    <div
+      className={`card ${isSelected ? 'selected' : ''} ${isDimmed ? 'dimmed' : ''}`}
+      onClick={onClick}
+    >
       <div className="tag">
         <div className="number">{rank}</div>
         <div className="score">score: {score}</div>

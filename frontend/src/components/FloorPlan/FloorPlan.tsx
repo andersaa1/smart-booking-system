@@ -6,10 +6,16 @@ type Props = {
   tables: Table[];
   reservations: Reservation | null;
   recommendations: Recommendation[];
+  selectedTableId: number | null;
   datetime: Date | null;
 };
 
-export default function FloorPlan({ tables, reservations, recommendations }: Props) {
+export default function FloorPlan({
+  tables,
+  reservations,
+  recommendations,
+  selectedTableId,
+}: Props) {
   const GRID_SIZE_Y: number = 27; // row count
   const GRID_SIZE_X: number = 25; // column count
   const CELL_SIZE: number = 30; // size of each cell in pixels
@@ -57,6 +63,7 @@ export default function FloorPlan({ tables, reservations, recommendations }: Pro
               className={`table 
                 ${reservations?.reservedTableIds?.includes(table.id) ? 'reserved' : ''}
                 ${recommendations.length > 0 && recommendations.some((r) => r.tableId === table.id) ? 'recommended' : ''}
+                ${selectedTableId === table.id ? 'selected' : ''}
               `}
               style={{
                 gridColumn: `${table.layout.col} / span ${table.layout.width}`,

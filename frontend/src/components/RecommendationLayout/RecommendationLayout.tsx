@@ -5,16 +5,26 @@ import RecommendationCard from './RecommendationCard';
 type Props = {
   recommendations: Recommendation[];
   tables: Table[];
+  selectedTableId: number | null;
+  setSelectedTableId: (tableId: number | null) => void;
   onGoBack: () => void;
 };
 
-export default function RecommendationLayout({ recommendations, tables, onGoBack }: Props) {
-  console.log(tables);
-  console.log(recommendations);
+export default function RecommendationLayout({
+  recommendations,
+  tables,
+  selectedTableId,
+  setSelectedTableId,
+  onGoBack,
+}: Props) {
   return (
     <div>
       <div>
         <h1 className="title">Recommendations</h1>
+      </div>
+
+      <div className="instruction">
+        {selectedTableId === null ? 'Click on a recommendation to pick it' : ''}
       </div>
 
       <div>
@@ -29,14 +39,22 @@ export default function RecommendationLayout({ recommendations, tables, onGoBack
                 return null;
               }
 
+              const isSelected = selectedTableId === recommendation.tableId;
+              const isDimmed =
+                selectedTableId !== null && selectedTableId !== recommendation.tableId;
+
               return (
                 <div key={recommendation.tableId}>
                   <RecommendationCard
+                    tableId={recommendation.tableId}
                     rank={index + 1}
                     zone={table.zone}
                     tableGroup={table.tableGroup}
                     totalSeats={table.totalSeats}
                     score={recommendation.score}
+                    isSelected={isSelected}
+                    isDimmed={isDimmed}
+                    onClick={() => setSelectedTableId(isSelected ? null : recommendation.tableId)}
                   />
                 </div>
               );
@@ -44,7 +62,20 @@ export default function RecommendationLayout({ recommendations, tables, onGoBack
           </div>
         )}
       </div>
-      <CustomButton label="Go Back" onClick={onGoBack} />
+      <div className="button-cluster">
+        <div className="button-row">
+          <CustomButton label="Go Back" onClick={onGoBack} />
+          <CustomButton
+            label="Reserve Table"
+            onClick={onGoBack}
+            disabled={selectedTableId === null}
+          />
+        </div>
+
+        <div className="button-row-single">
+          <CustomButton label="Choose a Table Manually" onClick={onGoBack} />
+        </div>
+      </div>
     </div>
   );
 }

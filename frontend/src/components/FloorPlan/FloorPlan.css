@@ -36,3 +36,7 @@
 .table.recommended {
   background-color: #e5da3e;
 }
+
+.table.selected {
+  background-color: #55a62f;
+}

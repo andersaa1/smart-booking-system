@@ -18,6 +18,8 @@ export default function RestaurantView() {
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const [showRecommendationsLayout, setShowRecommendationsLayout] = useState<boolean>(false);
 
+  const [selectedTableId, setSelectedTableId] = useState<number | null>(null);
+
   // fetches table data from the backend API when the component mounts and updates the tables state with the fetched data
   useEffect(() => {
     (async () => {
@@ -54,6 +56,7 @@ export default function RestaurantView() {
   function goBack() {
     setShowRecommendationsLayout(false);
     setRecommendations([]);
+    setSelectedTableId(null);
   }
 
   return (
@@ -65,15 +68,18 @@ export default function RestaurantView() {
           reservations={reservations}
           datetime={datetime}
           recommendations={recommendations}
+          selectedTableId={selectedTableId}
         />
       </div>
 
       <div style={{ flex: 1, backgroundColor: '#201f1f' }}>
         {showRecommendationsLayout ? (
-          // layout for showing recommendatoins
+          // layout for showing recommendations
           <RecommendationLayout
             recommendations={recommendations}
             tables={tables}
+            selectedTableId={selectedTableId}
+            setSelectedTableId={setSelectedTableId}
             onGoBack={goBack}
           />
         ) : (
