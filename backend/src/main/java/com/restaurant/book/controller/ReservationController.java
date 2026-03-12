@@ -2,7 +2,6 @@ package com.restaurant.book.controller;
 
 import com.restaurant.book.dto.request.ReservationBody;
 import com.restaurant.book.dto.response.Reservation;
-import com.restaurant.book.dto.response.Table;
 import com.restaurant.book.service.ReservationService;
 import java.time.LocalDateTime;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -32,14 +31,16 @@ public class ReservationController {
   }
 
   @PostMapping("/reservation")
-  public Table reservation(@RequestBody ReservationBody body) {
+  public String reservation(@RequestBody ReservationBody body) {
     // date & time defaults to now
     LocalDateTime reservationTime = body.datetime() == null ? LocalDateTime.now() : body.datetime();
     String name = body.name();
+    String email = body.email();
     int parySize = body.partySize();
-    Table table = body.table();
+    long tableId = body.tableId();
     int duration = 180;
 
-    return null;
+    return reservationService.createReservation(
+        tableId, reservationTime, name, email, parySize, duration);
   }
 }
