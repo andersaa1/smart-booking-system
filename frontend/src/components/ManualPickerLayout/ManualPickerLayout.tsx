@@ -54,7 +54,11 @@ export default function ManualPickerLayout({
 
       <div className="button-cluster-manual">
         <div className="button-top">
-          <CustomButton label="Reserve Table" onClick={onReserveTable} />
+          <CustomButton
+            label="Reserve Table"
+            onClick={onReserveTable}
+            disabled={selectedTableId === null}
+          />
         </div>
         <div className="button-bottom">
           <CustomButton label="Go Back" onClick={onGoBack} />

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchTables } from '../services/tables';
-import { fetchReservations } from '../services/reservation';
+import { fetchCreateReservation, fetchReservations } from '../services/reservation';
 import type { LayoutScreen, Table, Reservation, Preference, Recommendation } from '../types/types';
 import FloorPlan from '../components/FloorPlan/FloorPlan';
 import ReservationLayout from '../components/ReservationLayout/ReservationLayout';
@@ -25,9 +25,12 @@ export default function RestaurantView() {
   const [showRecommendationHighlights, setShowRecommendationHighlights] = useState(false);
   const [showSelectedHighlight, setShowSelectedHighlight] = useState(false);
 
+  // reservation data
   const [datetime, setDatetime] = useState<Date | null>(new Date());
   const [partySize, setPartySize] = useState<number>(1);
   const [preferences, setPreferences] = useState<Preference[] | null>(null);
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
 
   // fetches table data from the backend API when the component mounts and updates the tables state with the fetched data
   useEffect(() => {
@@ -66,7 +69,7 @@ export default function RestaurantView() {
   }
 
   // navigational handlers
-  // ReservationLayout -> RecommendationLayout
+  // fetches recommendations + ReservationLayout -> RecommendationLayout
   async function handleRecommendations() {
     const data = await fetchRecommendations(datetime, partySize, preferences);
 
@@ -76,6 +79,20 @@ export default function RestaurantView() {
       setShowRecommendationHighlights(true);
       setShowSelectedHighlight(false);
       setCurrentView('recommendations');
+    }
+  }
+
+  // creates reservation + CreateReservationLayout -> ThankYouLayout
+  async function handleThanksFromCreateReservation() {
+    if (datetime && selectedTableId) {
+      const data = await fetchCreateReservation(datetime, name, email, partySize, selectedTableId);
+
+      if (data) {
+        setSelectedTableId(null);
+        setShowRecommendationHighlights(false);
+        setShowSelectedHighlight(false);
+        setCurrentView('thankYou');
+      }
     }
   }
 
@@ -145,14 +162,10 @@ export default function RestaurantView() {
       setCurrentView('recommendations');
       return;
     }
-  }
-
-  // CreateReservationLayout -> ThankYouLayout
-  function handleThanksFromReservation() {
     setSelectedTableId(null);
-    setShowRecommendationHighlights(false);
     setShowSelectedHighlight(false);
-    setCurrentView('thankYou');
+    setCurrentView('manualPicker');
+    return;
   }
 
   // ThankYouLayout -> ReservationLayout
@@ -161,6 +174,8 @@ export default function RestaurantView() {
     setRecommendations([]);
     setShowRecommendationHighlights(false);
     setShowSelectedHighlight(false);
+    setName('');
+    setEmail('');
     setCurrentView('reservation');
   }
 
@@ -208,9 +223,17 @@ export default function RestaurantView() {
       case 'createReservation':
         return (
           <CreateReservationLayout
+            datetime={datetime}
+            tables={tables}
             selectedTableId={selectedTableId}
+            name={name}
+            email={email}
+            partySize={partySize}
+            setPartySize={setPartySize}
+            setName={setName}
+            setEmail={setEmail}
             onChangeTable={handleBackFromCreateReservation}
-            onCreateReservation={handleThanksFromReservation}
+            onCreateReservation={handleThanksFromCreateReservation}
           />
         );
 

@@ -34,7 +34,12 @@ export default function ReservationLayout({
 
       <div className="wrapper">
         <DateTimePicker datetime={datetime} setDatetime={setDatetime} />
-        <NumberField partySize={partySize} setPartySize={setPartySize} />
+        <NumberField
+          label={'Party Size'}
+          maxNum={12}
+          partySize={partySize}
+          setPartySize={setPartySize}
+        />
         <PreferencePicker preferences={preferences} setPreferences={setPreferences} />
         <div className="button-cluster">
           <div className="button-top">
