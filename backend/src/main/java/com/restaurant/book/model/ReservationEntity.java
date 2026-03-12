@@ -36,12 +36,30 @@ public class ReservationEntity {
   @Column(name = "end_time", nullable = false)
   private LocalDateTime endTime;
 
+  @Column(name = "name", nullable = false)
+  private String name;
+
+  @Column(name = "email", nullable = false)
+  private String email;
+
+  @Column(name = "party_size", nullable = false)
+  private Integer partySize;
+
   protected ReservationEntity() {}
 
-  public ReservationEntity(TableEntity table, LocalDateTime startTime, LocalDateTime endTime) {
+  public ReservationEntity(
+      TableEntity table,
+      LocalDateTime startTime,
+      LocalDateTime endTime,
+      String name,
+      String email,
+      Integer partySize) {
     this.table = table;
     this.startTime = startTime;
     this.endTime = endTime;
+    this.name = name;
+    this.email = email;
+    this.partySize = partySize;
   }
 
   public Long getId() {

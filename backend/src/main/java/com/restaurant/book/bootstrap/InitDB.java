@@ -96,16 +96,36 @@ public class InitDB {
       var start = LocalDateTime.now();
       var end = start.plusHours(3);
 
-      reservationRepository.save(new ReservationEntity(tables.get(0), start, end));
-      reservationRepository.save(new ReservationEntity(tables.get(5), start, end));
-      reservationRepository.save(new ReservationEntity(tables.get(10), start, end));
-      reservationRepository.save(new ReservationEntity(tables.get(11), start, end));
-      reservationRepository.save(new ReservationEntity(tables.get(12), start, end));
-      reservationRepository.save(new ReservationEntity(tables.get(15), start, end));
-      reservationRepository.save(new ReservationEntity(tables.get(17), start, end));
-      reservationRepository.save(new ReservationEntity(tables.get(20), start, end));
-      reservationRepository.save(new ReservationEntity(tables.get(23), start, end));
-      reservationRepository.save(new ReservationEntity(tables.get(27), start, end));
+      reservationRepository.save(
+          new ReservationEntity(tables.get(0), start, end, "Juhan", "juhan@hotmail.ee", 6));
+      // reservationRepository.save(new ReservationEntity(tables.get(0), start, end));
+      reservationRepository.save(
+          new ReservationEntity(tables.get(5), start, end, "Andrus", "andrus@gmail.com", 4));
+      // reservationRepository.save(new ReservationEntity(tables.get(5), start, end));
+      reservationRepository.save(
+          new ReservationEntity(tables.get(10), start, end, "Ramul", "ramul@pilveprojekt.ee", 2));
+      // reservationRepository.save(new ReservationEntity(tables.get(10), start, end));
+      reservationRepository.save(
+          new ReservationEntity(tables.get(11), start, end, "Ander", "ander@gmail.com", 2));
+      // reservationRepository.save(new ReservationEntity(tables.get(11), start, end));
+      reservationRepository.save(
+          new ReservationEntity(tables.get(12), start, end, "Artur", "juhan@hotmail.ee", 2));
+      // reservationRepository.save(new ReservationEntity(tables.get(12), start, end));
+      reservationRepository.save(
+          new ReservationEntity(tables.get(15), start, end, "Peeter", "peeter@msn.com", 2));
+      // reservationRepository.save(new ReservationEntity(tables.get(15), start, end));
+      reservationRepository.save(
+          new ReservationEntity(tables.get(17), start, end, "Toomas", "toomas@hotmail.ee", 4));
+      // reservationRepository.save(new ReservationEntity(tables.get(17), start, end));
+      reservationRepository.save(
+          new ReservationEntity(tables.get(20), start, end, "Siim", "siim@gmail.com", 2));
+      // reservationRepository.save(new ReservationEntity(tables.get(20), start, end));
+      reservationRepository.save(
+          new ReservationEntity(tables.get(23), start, end, "Ints", "ints@ut.ee", 2));
+      // reservationRepository.save(new ReservationEntity(tables.get(23), start, end));
+      reservationRepository.save(
+          new ReservationEntity(tables.get(27), start, end, "Juku", "juku@mail.ee", 2));
+      // reservationRepository.save(new ReservationEntity(tables.get(27), start, end));
     };
   }
 }
