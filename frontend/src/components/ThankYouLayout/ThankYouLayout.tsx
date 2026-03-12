@@ -1,4 +1,4 @@
-import './ThankYouLayout.css'
+import './ThankYouLayout.css';
 import CustomButton from '../CustomButton';
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 export default function ManualPickerLayout({ onHome }: Props) {
   return (
     <div>
-      <div className='title-thanks'>
+      <div className="title-thanks">
         <h1>Thank You for Dining With Seaside Grill & Chill!</h1>
       </div>
 

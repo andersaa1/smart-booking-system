@@ -75,21 +75,21 @@ public class InitDB {
 
       // terrace
       tableRepository.save(
-          new TableEntity(Zone.TERRACE, 'A', 2, 16, 19, 1, 2, Set.of(Preference.NONE)));
+          new TableEntity(Zone.STERRACE, 'A', 2, 16, 19, 1, 2, Set.of(Preference.NONE)));
       tableRepository.save(
-          new TableEntity(Zone.TERRACE, 'B', 2, 16, 22, 1, 2, Set.of(Preference.NONE)));
+          new TableEntity(Zone.STERRACE, 'B', 2, 16, 22, 1, 2, Set.of(Preference.NONE)));
       tableRepository.save(
-          new TableEntity(Zone.TERRACE, 'C', 2, 12, 26, 2, 1, Set.of(Preference.NONE)));
+          new TableEntity(Zone.STERRACE, 'C', 2, 12, 26, 2, 1, Set.of(Preference.NONE)));
       tableRepository.save(
-          new TableEntity(Zone.TERRACE, 'D', 2, 9, 26, 2, 1, Set.of(Preference.NONE)));
+          new TableEntity(Zone.ETERRACE, 'D', 2, 9, 26, 2, 1, Set.of(Preference.NONE)));
       tableRepository.save(
-          new TableEntity(Zone.TERRACE, 'E', 2, 6, 26, 2, 1, Set.of(Preference.NONE)));
+          new TableEntity(Zone.ETERRACE, 'E', 2, 6, 26, 2, 1, Set.of(Preference.NONE)));
 
       // private rooms
       tableRepository.save(
-          new TableEntity(Zone.PRIVATE, 'A', 12, 8, 2, 2, 6, Set.of(Preference.NONE)));
+          new TableEntity(Zone.LPRIVATE, 'A', 12, 8, 2, 2, 6, Set.of(Preference.NONE)));
       tableRepository.save(
-          new TableEntity(Zone.PRIVATE, 'B', 8, 12, 4, 2, 4, Set.of(Preference.NONE)));
+          new TableEntity(Zone.SPRIVATE, 'B', 8, 12, 4, 2, 4, Set.of(Preference.NONE)));
 
       // creates the test reservation entities in the database
       var tables = tableRepository.findAll();

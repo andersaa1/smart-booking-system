@@ -3,7 +3,9 @@ package com.restaurant.book.model;
 public enum Zone {
   MAIN,
   QUIET,
-  TERRACE,
+  STERRACE,
+  ETERRACE,
   SHOW,
-  PRIVATE
+  LPRIVATE,
+  SPRIVATE
 }

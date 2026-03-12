@@ -42,7 +42,7 @@ export const zones: ZoneLayout[] = [
     },
   },
   {
-    id: 'L-PRIVATE',
+    id: 'LPRIVATE',
     label: 'L PRIVATE',
     column: 7,
     row: 1,
@@ -56,7 +56,7 @@ export const zones: ZoneLayout[] = [
     },
   },
   {
-    id: 'S-PRIVATE',
+    id: 'SPRIVATE',
     label: 'S PRIVATE',
     column: 11,
     row: 3,
@@ -69,7 +69,7 @@ export const zones: ZoneLayout[] = [
     },
   },
   {
-    id: 'TERRACE-S',
+    id: 'STERRACE',
     label: 'TERRACE',
     column: 4,
     row: 25,
@@ -84,7 +84,7 @@ export const zones: ZoneLayout[] = [
     labelStyle: { paddingLeft: 345, paddingTop: 165, transform: 'rotate(-45deg)' },
   },
   {
-    id: 'TERRACE-E',
+    id: 'ETERRACE',
     column: 15,
     row: 17,
     width: 3,
