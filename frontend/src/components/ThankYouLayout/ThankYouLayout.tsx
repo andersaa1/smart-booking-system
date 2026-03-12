@@ -1,3 +1,4 @@
+import './ThankYouLayout.css'
 import CustomButton from '../CustomButton';
 
 type Props = {
@@ -7,8 +8,8 @@ type Props = {
 export default function ManualPickerLayout({ onHome }: Props) {
   return (
     <div>
-      <div>
-        <h1>Thank You for Reserving a Table at Seaside Grill & Chill</h1>
+      <div className='title-thanks'>
+        <h1>Thank You for Dining With Seaside Grill & Chill!</h1>
       </div>
 
       <div className="button-cluster">

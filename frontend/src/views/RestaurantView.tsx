@@ -93,6 +93,13 @@ export default function RestaurantView() {
         setShowSelectedHighlight(false);
         setCurrentView('thankYou');
       }
+
+      try {
+        const data = await fetchReservations(datetime);
+        setReservations(data);
+      } catch (error) {
+        console.error('Error fetching reservations:', error);
+      }
     }
   }
 
