@@ -255,14 +255,22 @@ cd backend
 ## CI/CD Pipeline
 GitHub Actions is used to run code quality checks on every push and pull request to the `main` branch.
 </br>
-The pipeline contains four jobs:
-* frontend lint
-* backend lint
-* frontend format
-* backend format
+The pipeline contains five jobs:
+* **frontend lint**
+* **backend lint**
+* **frontend format**
+* **backend format**
+* **docker build and push**
 
 ### Lint and Format Jobs
 The pipeline only validates the code, by executing `...:check` commands. Formatting fixes must be applied locally before pushing changes.
+
+### Docker Job
+The Docker job builds Docker images for the frontend and backend.
+- On **pull requests**, the pipeline only builds the Docker images to verify that they can be created successfully.
+- On **pull requests**, the pipeline only builds the Docker images to verify that they can be created successfully.
+
+This ensures that the application can always be started using `docker compose` with the latest successful container images
 
 ## Bugs & Issues
 Known bugs and planned features are tracked in the GitHub issue tracker. </br>
