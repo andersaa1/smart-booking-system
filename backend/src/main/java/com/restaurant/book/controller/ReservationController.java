@@ -27,7 +27,7 @@ public class ReservationController {
       @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
           LocalDateTime datetime,
       @RequestParam(required = false) Integer durationMinutes) {
-    return reservationService.getReservation(datetime, durationMinutes);
+    return reservationService.getReservationAtTimeWindow(datetime);
   }
 
   @PostMapping("/reservation")

@@ -7,6 +7,7 @@ import com.restaurant.book.model.Zone;
 import com.restaurant.book.repository.ReservationRepository;
 import com.restaurant.book.repository.TableRepository;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Set;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -350,7 +351,7 @@ public class InitDB {
 
       // creates the test reservation entities in the database
       var tables = tableRepository.findAll();
-      var start = LocalDateTime.now();
+      var start = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
       var end = start.plusHours(3);
 
       reservationRepository.save(

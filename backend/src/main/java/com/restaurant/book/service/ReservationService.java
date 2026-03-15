@@ -6,6 +6,7 @@ import com.restaurant.book.model.TableEntity;
 import com.restaurant.book.repository.ReservationRepository;
 import com.restaurant.book.repository.TableRepository;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,19 @@ public class ReservationService {
     return new Reservation(start, reserved);
   }
 
+  public Reservation getReservationAtTimeWindow(LocalDateTime datetime) {
+    LocalDateTime timeWindow =
+        ((datetime == null) ? LocalDateTime.now() : datetime).truncatedTo(ChronoUnit.MINUTES);
+
+    List<TableEntity> tables = tableRepository.findAll();
+    List<Long> tableIds = tables.stream().map(TableEntity::getId).toList();
+
+    List<Long> reserved =
+        reservationRepository.findReservedTableIdsAtTimeWindow(tableIds, timeWindow);
+
+    return new Reservation(timeWindow, reserved);
+  }
+
   public String createReservation(
       long tableId,
       LocalDateTime datetime,
@@ -63,7 +77,8 @@ public class ReservationService {
       return "This table doesn't have enough seats for this party size!";
     }
 
-    LocalDateTime start = (datetime == null) ? LocalDateTime.now() : datetime;
+    LocalDateTime start =
+        ((datetime == null) ? LocalDateTime.now() : datetime).truncatedTo(ChronoUnit.MINUTES);
     int duration = (durationMinutes == null || durationMinutes <= 0) ? 180 : durationMinutes;
     LocalDateTime end = start.plusMinutes(duration);
 

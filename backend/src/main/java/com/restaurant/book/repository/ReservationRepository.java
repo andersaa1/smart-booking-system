@@ -13,14 +13,25 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
   // queries the reservation table for table id's that are between the start and end time
   @Query(
       """
-        select distinct r.table.id
-        from ReservationEntity r
-        where r.table.id in :tableIds
-          and r.startTime < :reservationEnd
-          and r.endTime > :reservationStart
-    """)
+      select distinct r.table.id
+      from ReservationEntity r
+      where r.table.id in :tableIds
+        and r.startTime < :reservationEnd
+        and r.endTime > :reservationStart
+  """)
   List<Long> findReservedTableIds(
       @Param("tableIds") Collection<Long> tableIds,
       @Param("reservationStart") LocalDateTime reservationStart,
       @Param("reservationEnd") LocalDateTime reservationEnd);
+
+  @Query(
+      """
+      select distinct r.table.id
+      from ReservationEntity r
+      where r.table.id in :tableIds
+        and r.startTime <= :timeWindow
+        and r.endTime > :timeWindow
+  """)
+  List<Long> findReservedTableIdsAtTimeWindow(
+      @Param("tableIds") Collection<Long> tableIds, @Param("timeWindow") LocalDateTime timeWindow);
 }
