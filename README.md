@@ -5,7 +5,7 @@
 The application is containerized using Docker.
 Following tools need to be installed on your system to run the app:
 - Docker
-- Docker Copmose (included with Docker Desktop)
+- Docker Compose (included with Docker Desktop)
 
 [Install Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
@@ -27,10 +27,68 @@ Use the app on full screen for intended experience.
 
 ## Architecture Overview
 
-The application consists of two separate modules:
+The application follows a client-server architecture and is divided into two modules:
 
-- backend - Spring Boot 
-- frontend - React + TypeScript
+- **Backend** - REST API built with **Spring Boot** that handles business logic, table recommendations, and reservation management. The backend uses **Spring Data JPA** with an **H2 database**.
+- **Frontend** - A single-page web application built with **React + TypeScript** using **Vite** as the build tool. The frontend communicates with the backend through HTTP requests through the REST API.
+
+The frontend is responsible for rendering the user interface, including the interactive floor plan and reservation forms, while the backend processes reservation requests, calculates table recommendations, and manages data storage. </br>
+The application is containerized using **Docker**, allowing the frontend and backend services to run in separate containers that can be started together using **Docker Compose**.
+```mermaid
+flowchart TD
+    Browser["User Browser"]
+    Frontend["Frontend React + TypeScript - Vite"]
+    Backend["Backend Spring Boot REST API"]
+    Database[H2 Database]
+
+    Browser --> Frontend
+    Frontend --> Backend
+    Backend --> Database
+```
+
+## Database Schema
+
+The backend uses **Spring Data JPA** with an **H2 database**.
+
+There are three database tables in total:
+
+- **tables** – stores all the tables, their zone, seating capacity, and position in the floor plan grid
+- **reservations** – stores reservations linked to a specific table
+- **table_preferences** – stores preferences assigned to each table, such as `WINDOW`, `QUIET`, `BAR`
+
+A single table can have many reservations over time, and each table can also have multiple preferences.
+
+```mermaid
+erDiagram
+    TABLES ||--o{ RESERVATIONS : has
+    TABLES ||--o{ TABLE_PREFERENCES : has
+
+    TABLES {
+        bigint id PK
+        string zone
+        char table_group
+        int total_seats
+        int col_pos
+        int row_pos
+        int width
+        int height
+    }
+
+    RESERVATIONS {
+        bigint id PK
+        bigint table_id FK
+        datetime start_time
+        datetime end_time
+        string name
+        string email
+        int party_size
+    }
+
+    TABLE_PREFERENCES {
+        bigint table_id FK
+        string preference
+    }
+```
 
 ## Floor Plan
 The layout of the restaurant might change in the future. The mock-restaurant floor plan consists of eight different zones, five of which include tables that can be reserved. These zones are:
@@ -132,7 +190,7 @@ POST /api/recommendations
 ]
 ```
 ### Adding New Reservations
-Endpoint for adding new reservations. Request body is mandatory for this endpoint and all the fields have to be filled in. This endpoint is called whenever a reservation is created throught the frontend application.</br>
+Endpoint for adding new reservations. Request body is mandatory for this endpoint and all the fields have to be filled in. This endpoint is called whenever a reservation is created through the frontend application.</br>
 **Request:**
 ```bash
 POST /api/reservation
