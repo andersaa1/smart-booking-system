@@ -27,69 +27,326 @@ public class InitDB {
       // creates the table entities in the database
       // main room
       tableRepository.save(
-          new TableEntity(Zone.MAIN, 'A', 6, 5, 11, 3, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.MAIN,
+              'A',
+              6,
+              5,
+              11,
+              3,
+              2,
+              Set.of(
+                  Preference.FAST_MUSIC,
+                  Preference.BATHROOM,
+                  Preference.WINDOW,
+                  Preference.GAMES,
+                  Preference.FAMILY)));
       tableRepository.save(
-          new TableEntity(Zone.MAIN, 'B', 6, 5, 14, 3, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.MAIN,
+              'B',
+              6,
+              5,
+              14,
+              3,
+              2,
+              Set.of(
+                  Preference.FAST_MUSIC,
+                  Preference.WINDOW,
+                  Preference.CHARGER,
+                  Preference.GAMES,
+                  Preference.FAMILY)));
       tableRepository.save(
-          new TableEntity(Zone.MAIN, 'C', 4, 9, 11, 2, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.MAIN,
+              'C',
+              4,
+              9,
+              11,
+              2,
+              2,
+              Set.of(Preference.FAST_MUSIC, Preference.BATHROOM, Preference.FAMILY)));
       tableRepository.save(
-          new TableEntity(Zone.MAIN, 'D', 4, 9, 14, 2, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.MAIN,
+              'D',
+              4,
+              9,
+              14,
+              2,
+              2,
+              Set.of(Preference.FAST_MUSIC, Preference.GAMES, Preference.FAMILY)));
       tableRepository.save(
-          new TableEntity(Zone.MAIN, 'E', 4, 12, 11, 2, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.MAIN,
+              'E',
+              4,
+              12,
+              11,
+              2,
+              2,
+              Set.of(Preference.FAST_MUSIC, Preference.CHARGER, Preference.FAMILY)));
       tableRepository.save(
-          new TableEntity(Zone.MAIN, 'F', 4, 12, 14, 2, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.MAIN,
+              'F',
+              4,
+              12,
+              14,
+              2,
+              2,
+              Set.of(
+                  Preference.FAST_MUSIC, Preference.CHARGER, Preference.GAMES, Preference.FAMILY)));
 
       // show room
       tableRepository.save(
-          new TableEntity(Zone.SHOW, 'A', 2, 16, 10, 1, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.SHOW,
+              'A',
+              2,
+              16,
+              10,
+              1,
+              2,
+              Set.of(Preference.SHOW, Preference.STAGE_FAR, Preference.CANDLE)));
       tableRepository.save(
-          new TableEntity(Zone.SHOW, 'B', 2, 16, 14, 1, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.SHOW,
+              'B',
+              2,
+              16,
+              14,
+              1,
+              2,
+              Set.of(Preference.SHOW, Preference.STAGE_FAR, Preference.CANDLE)));
       tableRepository.save(
-          new TableEntity(Zone.SHOW, 'C', 2, 18, 10, 1, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.SHOW,
+              'C',
+              2,
+              18,
+              10,
+              1,
+              2,
+              Set.of(Preference.SHOW, Preference.STAGE_FAR, Preference.CANDLE)));
       tableRepository.save(
-          new TableEntity(Zone.SHOW, 'D', 2, 18, 14, 1, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.SHOW,
+              'D',
+              2,
+              18,
+              14,
+              1,
+              2,
+              Set.of(Preference.SHOW, Preference.STAGE_FAR, Preference.CANDLE)));
       tableRepository.save(
-          new TableEntity(Zone.SHOW, 'E', 2, 20, 10, 1, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.SHOW,
+              'E',
+              2,
+              20,
+              10,
+              1,
+              2,
+              Set.of(Preference.SHOW, Preference.STAGE, Preference.CANDLE)));
       tableRepository.save(
-          new TableEntity(Zone.SHOW, 'F', 2, 20, 14, 1, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.SHOW,
+              'F',
+              2,
+              20,
+              14,
+              1,
+              2,
+              Set.of(Preference.SHOW, Preference.STAGE, Preference.CANDLE)));
       tableRepository.save(
-          new TableEntity(Zone.SHOW, 'G', 2, 22, 10, 1, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.SHOW,
+              'G',
+              2,
+              22,
+              10,
+              1,
+              2,
+              Set.of(Preference.SHOW, Preference.STAGE, Preference.CANDLE)));
       tableRepository.save(
-          new TableEntity(Zone.SHOW, 'H', 2, 22, 14, 1, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.SHOW,
+              'H',
+              2,
+              22,
+              14,
+              1,
+              2,
+              Set.of(Preference.SHOW, Preference.STAGE, Preference.CANDLE)));
 
       // quiet room
       tableRepository.save(
-          new TableEntity(Zone.QUIET, 'A', 4, 5, 19, 2, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.QUIET,
+              'A',
+              4,
+              5,
+              19,
+              2,
+              2,
+              Set.of(
+                  Preference.QUIET, Preference.RELAX_MUSIC, Preference.BAR, Preference.BATHROOM)));
       tableRepository.save(
-          new TableEntity(Zone.QUIET, 'B', 4, 5, 22, 2, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.QUIET,
+              'B',
+              4,
+              5,
+              22,
+              2,
+              2,
+              Set.of(
+                  Preference.QUIET, Preference.RELAX_MUSIC, Preference.BAR, Preference.BATHROOM)));
       tableRepository.save(
-          new TableEntity(Zone.QUIET, 'C', 2, 9, 19, 2, 1, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.QUIET,
+              'C',
+              2,
+              9,
+              19,
+              2,
+              1,
+              Set.of(Preference.QUIET, Preference.RELAX_MUSIC, Preference.CANDLE)));
       tableRepository.save(
-          new TableEntity(Zone.QUIET, 'D', 2, 9, 21, 2, 1, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.QUIET,
+              'D',
+              2,
+              9,
+              21,
+              2,
+              1,
+              Set.of(
+                  Preference.QUIET,
+                  Preference.RELAX_MUSIC,
+                  Preference.BATHROOM,
+                  Preference.CANDLE)));
       tableRepository.save(
-          new TableEntity(Zone.QUIET, 'E', 2, 9, 23, 2, 1, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.QUIET,
+              'E',
+              2,
+              9,
+              23,
+              2,
+              1,
+              Set.of(
+                  Preference.QUIET,
+                  Preference.RELAX_MUSIC,
+                  Preference.BATHROOM,
+                  Preference.WINDOW,
+                  Preference.CANDLE)));
       tableRepository.save(
-          new TableEntity(Zone.QUIET, 'F', 2, 13, 19, 1, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.QUIET,
+              'F',
+              2,
+              13,
+              19,
+              1,
+              2,
+              Set.of(
+                  Preference.QUIET,
+                  Preference.RELAX_MUSIC,
+                  Preference.WINDOW,
+                  Preference.CHARGER,
+                  Preference.CANDLE)));
       tableRepository.save(
-          new TableEntity(Zone.QUIET, 'G', 2, 13, 22, 1, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.QUIET,
+              'G',
+              2,
+              13,
+              22,
+              1,
+              2,
+              Set.of(
+                  Preference.QUIET,
+                  Preference.RELAX_MUSIC,
+                  Preference.WINDOW,
+                  Preference.CHARGER,
+                  Preference.CANDLE)));
 
       // terrace
       tableRepository.save(
-          new TableEntity(Zone.STERRACE, 'A', 2, 16, 19, 1, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.STERRACE,
+              'A',
+              2,
+              16,
+              19,
+              1,
+              2,
+              Set.of(Preference.OUTDOOR, Preference.NO_MUSIC, Preference.SHADE, Preference.GAMES)));
       tableRepository.save(
-          new TableEntity(Zone.STERRACE, 'B', 2, 16, 22, 1, 2, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.STERRACE,
+              'B',
+              2,
+              16,
+              22,
+              1,
+              2,
+              Set.of(Preference.OUTDOOR, Preference.NO_MUSIC, Preference.SHADE)));
       tableRepository.save(
-          new TableEntity(Zone.STERRACE, 'C', 2, 12, 26, 2, 1, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.STERRACE,
+              'C',
+              2,
+              12,
+              26,
+              2,
+              1,
+              Set.of(Preference.OUTDOOR, Preference.NO_MUSIC)));
       tableRepository.save(
-          new TableEntity(Zone.ETERRACE, 'D', 2, 9, 26, 2, 1, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.ETERRACE, 'D', 2, 9, 26, 2, 1, Set.of(Preference.OUTDOOR, Preference.NO_MUSIC)));
       tableRepository.save(
-          new TableEntity(Zone.ETERRACE, 'E', 2, 6, 26, 2, 1, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.ETERRACE,
+              'E',
+              2,
+              6,
+              26,
+              2,
+              1,
+              Set.of(Preference.OUTDOOR, Preference.NO_MUSIC, Preference.GAMES)));
 
       // private rooms
       tableRepository.save(
-          new TableEntity(Zone.LPRIVATE, 'A', 12, 8, 2, 2, 6, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.LPRIVATE,
+              'A',
+              12,
+              8,
+              2,
+              2,
+              6,
+              Set.of(
+                  Preference.PRIVATE,
+                  Preference.GAMES,
+                  Preference.FREE_MUSIC,
+                  Preference.CHARGER)));
       tableRepository.save(
-          new TableEntity(Zone.SPRIVATE, 'B', 8, 12, 4, 2, 4, Set.of(Preference.NONE)));
+          new TableEntity(
+              Zone.SPRIVATE,
+              'B',
+              8,
+              12,
+              4,
+              2,
+              4,
+              Set.of(
+                  Preference.PRIVATE,
+                  Preference.GAMES,
+                  Preference.FREE_MUSIC,
+                  Preference.CHARGER)));
 
       // creates the test reservation entities in the database
       var tables = tableRepository.findAll();

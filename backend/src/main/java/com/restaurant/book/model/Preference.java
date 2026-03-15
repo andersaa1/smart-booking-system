@@ -5,6 +5,19 @@ public enum Preference {
   WINDOW,
   BATHROOM,
   PRIVATE,
+  QUIET,
+  OUTDOOR,
+  SHOW,
   STAGE,
-  SHADE
+  STAGE_FAR,
+  BAR,
+  SHADE,
+  FREE_MUSIC,
+  RELAX_MUSIC,
+  FAST_MUSIC,
+  NO_MUSIC,
+  CHARGER,
+  GAMES,
+  CANDLE,
+  FAMILY
 }

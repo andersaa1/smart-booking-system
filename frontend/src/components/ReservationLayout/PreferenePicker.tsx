@@ -5,14 +5,46 @@ type Props = {
   setPreferences: (preferences: Preference[] | null) => void;
 };
 
-const PREFERENCE_OPTIONS: Preference[] = ['WINDOW', 'BATHROOM', 'PRIVATE', 'STAGE', 'SHADE'];
+const PREFERENCE_OPTIONS: Preference[] = [
+  'WINDOW',
+  'BATHROOM',
+  'PRIVATE',
+  'QUIET',
+  'OUTDOOR',
+  'SHOW',
+  'STAGE',
+  'STAGE_FAR',
+  'BAR',
+  'SHADE',
+  'FREE_MUSIC',
+  'RELAX_MUSIC',
+  'FAST_MUSIC',
+  'NO_MUSIC',
+  'CHARGER',
+  'GAMES',
+  'CANDLE',
+  'FAMILY',
+];
 
 const LABELS: Record<Preference, string> = {
   WINDOW: 'Window Seat',
   BATHROOM: 'Close to Bathroom',
   PRIVATE: 'Private Area',
+  QUIET: 'Quiet Atmosphere',
+  OUTDOOR: 'Outside',
+  SHOW: 'Live Performers',
   STAGE: 'Close to Stage',
+  STAGE_FAR: 'Further from Stage',
+  BAR: 'Close to Bar',
   SHADE: 'Shaded Area',
+  FREE_MUSIC: 'Own Music',
+  RELAX_MUSIC: 'Relaxing Music',
+  FAST_MUSIC: 'Energetic Music',
+  NO_MUSIC: 'No Music',
+  CHARGER: 'Charging Availability',
+  GAMES: 'Board Games Included',
+  CANDLE: 'Candle Lit',
+  FAMILY: 'Family Friendly',
 };
 
 export default function PreferencePicker({ preferences, setPreferences }: Props) {
@@ -34,7 +66,7 @@ export default function PreferencePicker({ preferences, setPreferences }: Props)
       <label className="label">Preferences</label>
 
       <div className="preference-container">
-        <div className="preference-picker">
+        <div className="preference-picker selected-list">
           {selectedPreferences.map((preference) => (
             <button
               key={preference}
@@ -48,7 +80,7 @@ export default function PreferencePicker({ preferences, setPreferences }: Props)
           ))}
         </div>
 
-        <div className="preference-picker">
+        <div className="preference-picker available-list">
           {preferenceList.map((preference) => (
             <button
               key={preference}

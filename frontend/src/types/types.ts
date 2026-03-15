@@ -31,7 +31,25 @@ export type ZoneLayout = {
   labelStyle?: CSSProperties;
 };
 
-export type Preference = 'WINDOW' | 'BATHROOM' | 'PRIVATE' | 'STAGE' | 'SHADE';
+export type Preference =
+  | 'WINDOW'
+  | 'BATHROOM'
+  | 'PRIVATE'
+  | 'QUIET'
+  | 'OUTDOOR'
+  | 'SHOW'
+  | 'STAGE'
+  | 'STAGE_FAR'
+  | 'BAR'
+  | 'SHADE'
+  | 'FREE_MUSIC'
+  | 'RELAX_MUSIC'
+  | 'FAST_MUSIC'
+  | 'NO_MUSIC'
+  | 'CHARGER'
+  | 'GAMES'
+  | 'CANDLE'
+  | 'FAMILY';
 
 export type Layout = {
   col: number;

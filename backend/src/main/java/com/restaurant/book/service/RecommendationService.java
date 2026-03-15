@@ -48,6 +48,7 @@ public class RecommendationService {
         availableTables.stream()
             .map(
                 table -> new Recommendation(table.getId(), getScore(table, partySize, preferences)))
+            .filter(recommendation -> recommendation.score() >= 1)
             .toList();
 
     // gets three tables with the best score
@@ -70,8 +71,15 @@ public class RecommendationService {
       }
     }
 
-    // score penalty if open seats are left at the table
-    score -= table.getTotalSeats() - partySize;
+    int extraSeats = table.getTotalSeats() - partySize;
+
+    if (extraSeats == 0) {
+      score += 2;
+    } else if (extraSeats == 1) {
+      score += 1;
+    } else { // score penalty if too many open seats
+      score -= extraSeats;
+    }
 
     return score;
   }

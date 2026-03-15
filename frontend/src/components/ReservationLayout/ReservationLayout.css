@@ -45,13 +45,23 @@
 }
 
 .preference-picker {
-  min-height: 35px;
   padding: 10px;
   border-radius: 30px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   background: #fff;
+}
+
+.selected-list {
+  height: 35px;
+  overflow-y: auto;
+}
+
+.available-list {
+  height: 180px;
+  overflow-y: auto;
+  align-content: flex-start;
 }
 
 .preference-tag {
