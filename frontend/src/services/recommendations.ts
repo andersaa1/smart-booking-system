@@ -1,7 +1,7 @@
 import type { Preference, Recommendation } from '../types/types';
 import formatDatetime from '../utils/formatDatetime.ts';
 
-const API_URL = 'http://localhost:8080'
+const API_URL = 'http://localhost:8080';
 
 type RecommendationBody = {
   datetime: string | null;

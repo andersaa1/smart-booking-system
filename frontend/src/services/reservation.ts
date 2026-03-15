@@ -1,7 +1,7 @@
 import type { Reservation } from '../types/types.ts';
 import formatDatetime from '../utils/formatDatetime.ts';
 
-const API_URL = 'http://localhost:8080'
+const API_URL = 'http://localhost:8080';
 
 type ReservationBody = {
   datetime: string;
