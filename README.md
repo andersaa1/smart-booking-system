@@ -1,5 +1,30 @@
 # Smart Booking System
 
+## Prerequisites
+
+The application is containerized using Docker.
+Following tools need to be installed on your system to run the app:
+- Docker
+- Docker Copmose (included with Docker Desktop)
+
+[Install Docker Desktop](https://www.docker.com/products/docker-desktop/)
+
+## Running the App
+
+Clone the repository and start the containers:
+```bash
+git clone https://github.com/andersaa1/smart-booking-system.git
+cd smart-booking-system
+docker compose pull
+docker compose up -d
+```
+After the containers start, the application will be available at:
+* Frontend: http://localhost:3000
+* Backend API: http://localhost:8080/api
+
+Open http://localhost:3000 in your browser to access the application. </br>
+Use the app on full screen for intended experience.
+
 ## Architecture Overview
 
 The application consists of two separate modules:
