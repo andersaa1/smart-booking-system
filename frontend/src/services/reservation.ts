@@ -1,6 +1,8 @@
 import type { Reservation } from '../types/types.ts';
 import formatDatetime from '../utils/formatDatetime.ts';
 
+const API_URL = 'http://localhost:8080'
+
 type ReservationBody = {
   datetime: string;
   name: string;
@@ -22,7 +24,7 @@ function toLocalDateTimeString(date: Date): string {
 
 export async function fetchReservations(dateTime: Date | null = null): Promise<Reservation | null> {
   try {
-    let url = '/api/reservation';
+    let url = `${API_URL}/api/reservation`;
 
     if (dateTime) {
       const formattedDateTime = formatDatetime(dateTime);
@@ -58,7 +60,7 @@ export async function fetchCreateReservation(
       tableId,
     };
 
-    const res = await fetch('/api/reservation', {
+    const res = await fetch(`${API_URL}/api/reservation`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),

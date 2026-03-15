@@ -1,6 +1,8 @@
 import type { Preference, Recommendation } from '../types/types';
 import formatDatetime from '../utils/formatDatetime.ts';
 
+const API_URL = 'http://localhost:8080'
+
 type RecommendationBody = {
   datetime: string | null;
   partySize: number;
@@ -19,7 +21,7 @@ export async function fetchRecommendations(
       preferences,
     };
 
-    const res = await fetch('/api/recommendations', {
+    const res = await fetch(`${API_URL}/api/recommendations`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
