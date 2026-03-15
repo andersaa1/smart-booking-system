@@ -1,5 +1,18 @@
 # Smart Booking System
 
+- [Prerequisites](#prerequisites)
+- [Running the App](#running-the-app)
+- [Architecture Overview](#architecture-overview)
+- [Database Schema](#database-schema)
+- [Floor Plan](#floor-plan)
+- [Point System](#point-system)
+- [Endpoints](#endpoints)
+- [Code Quality](#code-quality)
+- [CI/CD Pipeline](#cicd-pipeline)
+- [Bugs & Issues](#bugs--issues)
+- [Summary](#summary)
+- [Author](#author)
+
 ## Prerequisites
 
 The application is containerized using Docker.
@@ -30,7 +43,7 @@ Use the app on full screen for intended experience.
 The application follows a client-server architecture and is divided into two modules:
 
 - **Backend** - REST API built with **Spring Boot** that handles business logic, table recommendations, and reservation management. The backend uses **Spring Data JPA** with an **H2 database**.
-- **Frontend** - A single-page web application built with **React + TypeScript** using **Vite** as the build tool. The frontend communicates with the backend through HTTP requests through the REST API.
+- **Frontend** - A single-page web application built with **React + TypeScript** using **Vite** as the build tool. The frontend communicates with the backend through HTTP requests to the REST API.
 
 The frontend is responsible for rendering the user interface, including the interactive floor plan and reservation forms, while the backend processes reservation requests, calculates table recommendations, and manages data storage. </br>
 The application is containerized using **Docker**, allowing the frontend and backend services to run in separate containers that can be started together using **Docker Compose**.
@@ -105,7 +118,7 @@ The layout of the restaurant might change in the future. The mock-restaurant flo
 
 ## Point System
 
-The recommendation algorith uses a simple scoring system based on two factors: efficiency and user preferences.
+The recommendation algorithm uses a simple scoring system based on two factors: efficiency and user preferences.
 
 ### Efficiency
 
@@ -290,7 +303,7 @@ The pipeline only validates the code, by executing `...:check` commands. Formatt
 ### Docker Job
 The Docker job builds Docker images for the frontend and backend.
 - On **pull requests**, the pipeline only builds the Docker images to verify that they can be created successfully.
-- On **pull requests**, the pipeline only builds the Docker images to verify that they can be created successfully.
+- On **pushes to `main`**, the images are built and pushed to **Docker Hub**.
 
 This ensures that the application can always be started using `docker compose` with the latest successful container images
 
@@ -298,6 +311,57 @@ This ensures that the application can always be started using `docker compose` w
 Known bugs and planned features are tracked in the GitHub issue tracker. </br>
 </br>
 To view all planned features and bugs, see the [Issue Tracker](https://github.com/andersaa1/smart-booking-system/issues).
+
+## Summary
+
+Total time spent on the project was approximately **30 hours**.
+
+### Challenges
+
+The biggest challenge of the project was keeping a consistent code style and structuring the project files according to standards. Code quality problems were lessened with introducing linting and formatting jobs to the pipeline. The file strucure was refactored a lot throughout the project - backend is clean, but the frontend file structure is a bit messy and hard to follow. </br>
+</br>
+Another challenge was planning the database schema for the future. The Records and database entities were constantly changed to accommodoate for changing features etc. More time should have been taken in the beginning to plan out the database schema and how it would fit into the application, this is something to be improved on. </br>
+</br>
+Apart from that, the project was a pretty smooth sailing and solutions to any obstacles faced were found quickly.
+
+### Improvements
+
+A lot of features could still be implemented and existing features can be improved. Planned features and some feature improvements can be found in the [Issue Tracker](https://github.com/andersaa1/smart-booking-system/issues). </br>
+</br>
+**Features That Could be Added:**
+* Admin panel for deleting/adding tables.
+* Music in the background.
+* Confirmation email for a successful reservation.
+
+**Point System Improvements:**
+The point system is too simple and faces some problems.
+* Some tables have less preferences than others, which means that they won't be recommended as much.
+* Efficiency penalties might be too strict.
+
+**UI/UX Improvements:**
+Some of the styling was done lazily and in a hurry, this can be seen in the `.css` files mainly.
+* Color scheme could be better.
+* Website doesn't scale well with different window sizes.
+* Date & Time can only be changed in the 'Get Table Recommendations' layout.
+* Date & Time format issues in some layouts.
+* The window that shows selected preferences is uncomfortable to use (too small).
+* When a button is disabled it still has a outline when hovered.
+* Many more.
+
+**Dev Improvements:**
+* Unit tests for backend and frontend.
+* E2E tests.
+* Better file structure.
+* Some unused methods that make reading the code more difficult.
+
+**Bugs & Other Improvements:**
+* Time can be chosen for the past - reservations can be made for past hours.
+
+### AI Usage
+
+AI was used for checking syntax a lot and replacing some nested conditionals/loops with more smart solutions. </br>
+Queries for checking if a table is reserved in `ReservationRepository.java` was made with AI. </br>
+Some bugs and database errors were fixed with the help of AI. </br>
 
 ## Author
 Ander Saarniit
