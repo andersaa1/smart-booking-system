@@ -102,6 +102,28 @@ The layout of the restaurant might change in the future. The mock-restaurant flo
 
 <img src="docs/floor-plan.png" alt="Restaurant floor plan" width=500px>
 
+
+## Point System
+
+The recommendation algorith uses a simple scoring system based on two factors: efficiency and user preferences.
+
+### Efficiency
+
+* If the party size fills **all seats** at the table -> **+2 score**
+* If **one seat** remains empty at the table -> **+1 score**
+* If **more than one seat** remains empty -> **-1 score** for each extra empty seat
+
+### Preferences
+
+Each table has a set of predefined preferences (for example `WINDOW`, `QUIET`, `BAR`). </br>
+For every user preference that matches a table preference, the table receives **+1 score**.
+
+### Final Score
+
+The final recommendation score for each table is calculated as: </br>
+`score = efficiency_score + preference_score` </br>
+Tables with a score less than **1** are not recommended.
+
 ## Endpoints
 The backend of the application has four endpoints in total managed by three controllers.
 
