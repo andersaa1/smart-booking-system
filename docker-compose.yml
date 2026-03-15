@@ -1,0 +1,12 @@
+services:
+  backend:
+    image: andersaa678/smart-reservation-backend:latest
+    ports:
+      - "8080:8080"
+
+  frontend:
+    image: andersaa678/smart-reservation-frontend:latest
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
